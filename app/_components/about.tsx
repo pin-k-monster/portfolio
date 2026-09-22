@@ -50,7 +50,6 @@
  */
 
 import { HighlightText } from "@/components/animations/highlight-text";
-import { Reveal } from "@/components/animations/reveal";
 import { TextReveal } from "@/components/animations/text-reveal";
 import { GrainBackground } from "@/components/backgrounds/grain";
 import { Avatar } from "@/components/ui/avatar";

@@ -75,7 +75,7 @@ export default function Skills() {
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 items-stretch gap-4 w-full">
                         {
                             skills.groups.map((g) => (
-                                <Card key={g.id} className="border-2 hover:border-brand/25 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer">
+                                <Card key={g.id} className="border-2 hover:border-brand/25 hover:shadow-xl hover:-translate-y-1 transition-all cursor-default">
                                     <CardHeader>
                                         <CardTitle className="flex items-center gap-x-2">
                                             <g.icon />
