@@ -69,7 +69,7 @@ export default function About() {
             <div className="container mx-auto px-4">
                 <div className="grid items-center gap-8 lg:grid-cols-[0.75fr_1.5fr]">
                     <div className="lg:sticky lg:top-24">
-                        <Card>
+                        <Card className="relative">
                             <GrainBackground className="*:rounded-2xl rounded-2xl" />
                             <div className="relative z-10">
                                 <div className="flex flex-col items-center gap-4 p-8">
