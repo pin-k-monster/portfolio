@@ -43,4 +43,61 @@
  * ‌- نام فناوری‌های لاتین داخل متن فارسی با dir مناسب همان span (نه کل پاراگراف)؛ عدد نیست.
  */
 
+import { Marquee } from "@/components/animations/marquee";
+import { Reveal } from "@/components/animations/reveal";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { skills } from "@/lib/site/skills/data";
+
 // Export: تأمین export پیش‌فرض default function Skills() در پیاده‌سازی بعدی.
+
+export default function Skills() {
+    return (
+        <section className="overflow-x-hidden">
+            <div id="skills" className="pb-16 sm:pb-24 container px-4 mx-auto flex flex-col justify-center items-center">
+                <Reveal>
+                    <div className="text-center space-y-4">
+                        <Badge variant="brand">{skills.eyebrow}</Badge>
+                        <h2 className="text-3xl font-bold">
+                            {skills.title}
+                        </h2>
+
+                        <Marquee className="my-5">
+                            {
+                                skills.marquee.map((s, index) => (
+                                    <Badge className="text-muted-foreground" key={index}>{s}</Badge>
+                                ))
+                            }
+                        </Marquee>
+                    </div>
+                </Reveal>
+                <Reveal delay={150} className="w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 items-stretch gap-4 w-full">
+                        {
+                            skills.groups.map((g) => (
+                                <Card key={g.id} className="border-2 hover:border-brand/25 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer">
+                                    <CardHeader>
+                                        <CardTitle className="flex items-center gap-x-2">
+                                            <g.icon />
+                                            {g.title}
+                                        </CardTitle>
+                                    </CardHeader>
+                                    <CardContent dir="ltr" className="space-y-2">
+                                        {g.skills.map((s) => (
+                                            <div key={s.id} className="flex items-center justify-between rounded-md border border-foreground/15 py-1 px-2 text-sm">
+                                                {s.name}
+                                                <span className="text-xs text-muted-foreground">
+                                                    {s.proficiency}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </CardContent>
+                                </Card>
+                            ))
+                        }
+                    </div>
+                </Reveal>
+            </div>
+        </section>
+    )
+}

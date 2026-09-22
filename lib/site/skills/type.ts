@@ -1,8 +1,11 @@
 /**
  * تایپ‌های بخش مهارت‌ها (این فایل کد واقعی است).
  */
+
+import { LucideIcon } from "lucide-react";
+
 /** سطح مهارت؛ فقط برچسب نمایشی است، نه درصد. */
-export type Proficiency = "متقدم" | "خوب" | "آشنا";
+export type Proficiency = "مقدماتی" | "مسلط" | "آشنا";
 
 /** یک مهارت/فناوری. */
 export interface Skill {
@@ -18,6 +21,8 @@ export interface Skill {
 export interface SkillGroup {
   /** کلید یکتا. */
   id: string;
+  /** آیکون */
+  icon: LucideIcon;
   /** عنوان فارسی دسته. */
   title: string;
   /** مهارت‌های درون دسته. */

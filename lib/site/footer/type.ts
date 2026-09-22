@@ -25,7 +25,7 @@ export interface FooterContent {
   columns: FooterColumn[];
   /** عنوان ستون تماس. */
   contactTitle: string;
-  /** ایمیل نمایشی. */
+  /** ایمیل مستقیم (از config). */
   email: string;
   /** عنوان ستون شبکه‌های اجتماعی. */
   socialsTitle: string;

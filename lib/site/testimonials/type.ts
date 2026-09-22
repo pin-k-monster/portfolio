@@ -1,24 +1,40 @@
 /**
- * تایپ‌های بخش نظرات (این فایل کد واقعی است).
- * ساختار آیتم دقیقا مانند بلاک `testimonials` رجیستری است: {name, role, quote, rating}.
+ * تایپ‌های بخش نظرات مشتریان (این فایل کد واقعی است).
  */
-export interface TestimonialItem {
+/** یک نظر. */
+export interface Testimonial {
   /** کلید یکتا. */
   id: string;
-  /** نام گوینده. */
-  name: string;
-  /** نقش/سمت گوینده. */
-  role: string;
-  /** نقل‌قول فارسی؛ داخل blockquote. */
+  /** متن نظر فارسی. */
   quote: string;
-  /** امتیاز ۱ تا ۵ (اختیاری). برای Rating با variant readOnly استفاده می‌شود. */
-  rating?: number;
+  /** نام کامل. */
+  author: string;
+  /** نقش/سمت. */
+  role: string;
+  /** نام سازمان (اختیاری). */
+  company?: string;
 }
 
-/** کل محتوای نظرات. */
+/** یک متریک نمایشی با ProgressRing. */
+export interface TestimonialMetric {
+  /** کلید یکتا. */
+  id: string;
+  /** برچسب فارسی زیر عدد. */
+  label: string;
+  /** مقدار ۰ تا ۱۰۰. */
+  value: number;
+}
+
+/** کل محتوای بخش نظرات. */
 export interface TestimonialsContent {
-  /** تیتر بخش (بلاک پیش‌فرض خودش «نظر همکاران» دارد؛ اگر بخواهید عوض کنید). */
-  title?: string;
-  /** آیتم‌ها؛ بهتر است مضرب ۳ باشند تا شبکه‌ی ستونی مرتب بماند. */
-  items: TestimonialItem[];
+  /** برچسب بالای تیتر. */
+  eyebrow: string;
+  /** تیتر بخش. */
+  title: string;
+  /** توضیح کوتاه. */
+  description: string;
+  /** کارت‌های نظر (CardStack). */
+  testimonials: Testimonial[];
+  /** متریک‌های رضایت (ProgressRing). */
+  metrics: TestimonialMetric[];
 }

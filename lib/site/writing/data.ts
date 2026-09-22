@@ -51,6 +51,20 @@ export const writing: WritingContent = {
       publishedAt: "۱۴۰۳/۱۲/۱۵",
       readingMinutes: 11,
     },
+    {
+      id: "typescript-taste",
+      slug: "/writing/typescript-taste",
+      title: "TypeScript برای محصول؛ تایپ‌هایی که بالاخره راحت‌اند",
+      excerpt:
+        "از union های نامحدود تا ساختارهای دوجانبه؛ چرا تایپ خوب ریشه‌ی کدِ قابل نگهداری است و چطور بدون پیچیده‌کردن، تایپ‌های معنادار بنویسیم.",
+      category: "زبان",
+      tags: [
+        { id: "ts", name: "TypeScript" },
+        { id: "money", name: "Product" },
+      ],
+      publishedAt: "۱۴۰۳/۰۸/۱۹",
+      readingMinutes: 6,
+    },
   ],
   readAllCta: {
     label: "دیدن همه‌ی مقاله‌ها",

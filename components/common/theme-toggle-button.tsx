@@ -10,7 +10,9 @@ export default function ThemeToggleButton() {
     const variant: ButtonProps["variant"] = theme == "dark" ? "default" : "secondary";
 
     return (
-        <Button onClick={toggleTheme} variant={variant} size="icon" className="size-8!">
+        <Button
+            aria-label="تغییر تم"
+            onClick={toggleTheme} variant={variant} size="icon" className="size-8!">
             {
                 theme == "dark" ? (
                     <MoonStarIcon />

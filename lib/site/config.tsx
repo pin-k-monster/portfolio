@@ -49,7 +49,7 @@ export interface SiteConfig {
 }
 
 export const site: SiteConfig = {
-  name: "آرین رضایی",
+  name: "کیارش جمالی",
   monogram: "ع",
   role: "توسعه‌دهنده‌ی فول‌استک",
   tagline: "محصولات وب سریع، در دسترس و همه‌فهم می‌سازم",

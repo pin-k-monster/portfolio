@@ -50,8 +50,8 @@ export function Sheet({ open, onOpenChange, title, side = "start", children, cla
         style={{ animation: panelAnimation(side) }}
         className={cn(
           "absolute flex flex-col bg-popover text-popover-foreground shadow-2xl",
-          side === "start" && "inset-y-0 start-0 w-full max-w-sm border-e border-border",
-          side === "end" && "inset-y-0 end-0 w-full max-w-sm border-s border-border",
+          side === "start" && "inset-y-0 inset-s-0 w-full max-w-sm border-e border-border",
+          side === "end" && "inset-y-0 inset-e-0 w-full max-w-sm border-s border-border",
           side === "bottom" && "inset-x-0 bottom-0 max-h-[85vh] rounded-t-2xl border-t border-border",
           className,
         )}

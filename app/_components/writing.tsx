@@ -47,4 +47,71 @@
  * ‌- برچسب «خواندن» از قالب blog رجیستری الگو بگیرید.
  */
 
-// Export: تأمین export پیش‌فرض default function Writing() در پیاده‌سازی بعدی.
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { Reveal } from "@/components/animations/reveal";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { writing } from "@/lib/site/writing/data";
+import { BlogGrid, Post } from "@/components/blocks/blog-grid";
+import { en } from "@/lib/utils";
+import { toGregorian } from "@/lib/jalali";
+import { site } from "@/lib/site/config";
+
+function ShowAllArticlesButton() {
+	return (
+		<Link href={writing.readAllCta.href} target={writing.readAllCta.target} rel={writing.readAllCta.rel}>
+			<Button variant="outline" size="lg" className="cursor-pointer">
+				{writing.readAllCta.label}
+				<ArrowLeft />
+			</Button>
+		</Link>
+	)
+}
+
+export default function Writing() {
+
+	const posts = writing.articles.map((article): Post => {
+		const [jy, jm, jd] = en(article.publishedAt).split("/").map(Number);
+
+		return {
+			href: article.slug,
+			title: article.title,
+			excerpt: article.excerpt,
+			category: article.category,
+			date: toGregorian(jy, jm, jd),
+			readingTime: article.readingMinutes,
+			author: { name: site.name }
+		};
+	})
+
+	return (
+		<section id="writing" aria-labelledby="writing-title" className="pb-16 sm:pb-24">
+			<div className="container mx-auto px-4">
+				<Reveal>
+					<div className="flex justify-between items-center gap-3 mb-10">
+						<div className="space-y-3">
+							<Badge variant="brand">{writing.eyebrow}</Badge>
+							<h2 id="writing-title" className="text-2xl sm:text-3xl font-bold leading-tight">
+								{writing.title}
+							</h2>
+							<p className="text-sm leading-7 text-muted-foreground">{writing.description}</p>
+						</div>
+
+						<div className="max-xl:hidden">
+							<ShowAllArticlesButton />
+						</div>
+					</div>
+				</Reveal>
+
+				<BlogGrid posts={posts} hideHeader />
+
+				<Reveal delay={250}>
+					<div className="xl:hidden mt-10 flex justify-center">
+						<ShowAllArticlesButton />
+					</div>
+				</Reveal>
+			</div>
+		</section>
+	);
+}

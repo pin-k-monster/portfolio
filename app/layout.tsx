@@ -3,7 +3,9 @@ import "./globals.css";
 import { vazirmatn } from "./fonts";
 import { site } from "@/lib/site/config";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { ToastProvider } from "@/components/ui/toast";
 import Navbar from "./_components/navbar";
+import Footer from "./_components/footer";
 
 export const metadata: Metadata = {
     ...site.seo
@@ -13,12 +15,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     return (
         <html
             lang="fa"
-            className={`${vazirmatn.variable} h-full antialiased`}
+            className={`${vazirmatn.variable} scroll-smooth h-full antialiased`}
             dir="rtl">
             <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
                 <ThemeProvider>
                     <Navbar />
-                    {children}
+                    <ToastProvider>{children}</ToastProvider>
+                    <Footer />
                 </ThemeProvider>
             </body>
         </html>

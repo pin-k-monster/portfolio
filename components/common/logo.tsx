@@ -10,8 +10,10 @@ export default function Logo() {
     const { theme } = useTheme();
 
     return (
-        <Link href={"/"} className={`${theme == "light" ? "invert" : ""} block w-fit hover:opacity-80 transition-opacity`}>
-            <Image src={"/navbar-logo.jpg"} width={50} height={50} alt={site.name} className="p-1" />
+        <Link href={"#"}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className={`${theme == "light" ? "invert" : ""} cursor-pointer block w-fit hover:opacity-80 transition-opacity`}>
+            <Image src={"/navbar-logo.png"} width={50} height={53.94} alt={site.name} className="p-1" />
         </Link>
     )
 }

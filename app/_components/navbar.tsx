@@ -66,7 +66,7 @@
 
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Menu, DownloadCloud } from "lucide-react";
 import { ShineButton } from "@/components/animations/shine-button";
 import Logo from "@/components/common/logo";
@@ -79,7 +79,7 @@ import { navbar } from "@/lib/site/navbar/data";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-function MobileSheetContent({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) {
+function MobileSheetContent({ setOpen, activeId }: { setOpen: Dispatch<SetStateAction<boolean>>; activeId: string }) {
     const { theme, setTheme } = useTheme();
     return (
         <div className="flex h-full flex-col">
@@ -91,7 +91,7 @@ function MobileSheetContent({ setOpen }: { setOpen: Dispatch<SetStateAction<bool
                                 href={item.href}
                                 onClick={() => setOpen(false)}
                             >
-                                <Button variant="ghost" className="w-full justify-start">
+                                <Button variant="ghost" data-nav-active={item.id === activeId ? "true" : undefined} className="w-full justify-start">
                                     {item.label}
                                 </Button>
                             </Link>
@@ -100,7 +100,8 @@ function MobileSheetContent({ setOpen }: { setOpen: Dispatch<SetStateAction<bool
                 </ul>
             </nav>
             <div className="justify-end flex flex-1 flex-col gap-3">
-                <Link href={site.resume.href} onClick={() => setOpen(false)}>
+                <Link href={site.resume.href} onClick={() => setOpen(false)}
+                    download={site.resume.download}>
                     <ShineButton className="w-full cursor-pointer" size="md">
                         {site.resume.label}
                         <DownloadCloud />
@@ -120,54 +121,89 @@ function MobileSheetContent({ setOpen }: { setOpen: Dispatch<SetStateAction<bool
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
+    const [activeId, setActiveId] = useState("");
+
+    useEffect(() => {
+        const sections = navbar.items
+            .map((item) => document.getElementById(item.id))
+            .filter((el): el is HTMLElement => el !== null);
+
+        if (!sections.length) return;
+
+        const pick = () => {
+            const viewportLine = window.innerHeight * 0.35;
+            const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8;
+            const last = sections[sections.length - 1];
+            if (atEnd || (last && last.getBoundingClientRect().bottom <= viewportLine)) {
+                setActiveId("");
+                return;
+            }
+            let current = "";
+            for (const el of sections) {
+                if (el.getBoundingClientRect().top <= viewportLine) current = el.id;
+            }
+            setActiveId(current);
+        };
+
+        pick();
+        window.addEventListener("scroll", pick, { passive: true });
+        window.addEventListener("resize", pick);
+        return () => {
+            window.removeEventListener("scroll", pick);
+            window.removeEventListener("resize", pick);
+        };
+    }, []);
 
     return (
-        <header className="py-1 px-4">
-            <div className="container mx-auto hidden items-center lg:grid lg:grid-cols-[1fr_2fr_1fr]">
-                <div>
+        <>
+            <header className="py-1 px-4 sticky top-0 backdrop-blur-md bg-background/75 z-50 border-b border-b-muted">
+                <div className="container mx-auto hidden items-center lg:grid lg:grid-cols-[1fr_2fr_1fr]">
+                    <div>
+                        <Logo />
+                    </div>
+                    <div className="flex justify-center">
+                        <ul className="gap-x-1 flex items-center text-sm">
+                            {navbar.items.map((item) => (
+                                <li key={item.id}
+                                    data-nav-active={item.id === activeId ? "true" : undefined}
+                                    className="relative transition-colors hover:text-foreground overflow-hidden rounded-md text-muted-foreground
+     before:content-[''] before:rounded-l-full before:absolute before:w-[0%] before:h-[0%] before:bg-foreground/10 hover:before:h-full hover:before:w-[50%] hover:before:rounded-none before:transition-all before:z-[-1]
+      after:content-[''] after:rounded-r-full after:left-0 after:bottom-0 after:absolute after:w-[0%] after:h-[0%] after:bg-foreground/10 hover:after:h-full hover:after:w-[50%] hover:after:rounded-none after:transition-all after:z-[-1]">
+                                    <Link href={item.href} className="block py-1.5 px-3">
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="gap-x-2 flex justify-end">
+                        <ThemeToggleButton />
+                        <Link href={site.resume.href} download={site.resume.download}>
+                            <ShineButton size="sm">
+                                {site.resume.label}
+                                <DownloadCloud />
+                            </ShineButton>
+                        </Link>
+                    </div>
+                </div>
+
+                <div className="container mx-auto flex items-center justify-between lg:hidden">
+                    <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => setOpen(true)}
+                        aria-label="باز کردن منو"
+                        aria-expanded={open}
+                    >
+                        <Menu className="size-5" />
+                    </Button>
                     <Logo />
                 </div>
-                <div className="flex justify-center">
-                    <ul className="gap-x-1 flex items-center text-sm">
-                        {navbar.items.map((item) => (
-                            <li key={item.id}
-                                className="relative transition-colors hover:text-foreground overflow-hidden rounded-md text-muted-foreground
-                                 before:content-[''] before:rounded-l-full before:absolute before:w-[0%] before:h-[0%] before:bg-foreground/10 hover:before:h-full hover:before:w-[50%] hover:before:rounded-none before:transition-all before:z-[-1]
-                                  after:content-[''] after:rounded-r-full after:left-0 after:bottom-0 after:absolute after:w-[0%] after:h-[0%] after:bg-foreground/10 hover:after:h-full hover:after:w-[50%] hover:after:rounded-none after:transition-all after:z-[-1]">
-                                <Link href={item.href} className="block py-1.5 px-3">
-                                    {item.label}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="gap-x-2 flex justify-end">
-                    <ThemeToggleButton />
-                    <Link href={site.resume.href}>
-                        <ShineButton className="cursor-pointer" size="sm">
-                            {site.resume.label}
-                            <DownloadCloud />
-                        </ShineButton>
-                    </Link>
-                </div>
-            </div>
-
-            <div className="container mx-auto flex items-center justify-between lg:hidden">
-                <Button
-                    size="icon"
-                    variant="outline"
-                    onClick={() => setOpen(true)}
-                    aria-label="باز کردن منو"
-                    aria-expanded={open}
-                >
-                    <Menu className="size-5" />
-                </Button>
-                <Logo />
-            </div>
+            </header>
 
             <Sheet open={open} onOpenChange={setOpen} side="start" title="منو">
-                <MobileSheetContent setOpen={setOpen} />
+                <MobileSheetContent setOpen={setOpen} activeId={activeId} />
             </Sheet>
-        </header>
+        </>
     )
 }
