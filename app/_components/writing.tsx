@@ -47,16 +47,40 @@
  * ‌- برچسب «خواندن» از قالب blog رجیستری الگو بگیرید.
  */
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, PenLine } from "lucide-react";
 import Link from "next/link";
+import { cn, en } from "@/lib/utils";
 import { Reveal } from "@/components/animations/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { writing } from "@/lib/site/writing/data";
 import { BlogGrid, Post } from "@/components/blocks/blog-grid";
-import { en } from "@/lib/utils";
 import { toGregorian } from "@/lib/jalali";
 import { site } from "@/lib/site/config";
+
+const COVER_GRADIENTS = [
+	"from-brand/30 via-muted/70 to-secondary",
+	"from-brand/25 via-secondary to-muted/80",
+	"from-brand/20 via-muted/80 to-secondary/70",
+	"from-brand/30 via-secondary/80 to-muted",
+];
+
+/** پوشش تزئینی برای مقاله‌هایی که تصویر ندارند؛ به‌جای بلوک توپر. */
+function ArticleCover({ index }: { index: number }) {
+	return (
+		<div
+			aria-hidden
+			className={cn(
+				"relative flex size-full items-center justify-center overflow-hidden bg-linear-to-br transition-transform duration-500 group-hover:scale-105",
+				COVER_GRADIENTS[index % COVER_GRADIENTS.length],
+			)}
+		>
+			<div className="absolute -inset-s-8 -top-10 size-28 rounded-full bg-brand/20 blur-2xl" />
+			<div className="absolute -bottom-12 -inset-e-8 size-32 rounded-full bg-brand/10 blur-3xl" />
+			<PenLine className="relative size-7 text-brand/60" />
+		</div>
+	);
+}
 
 function ShowAllArticlesButton() {
 	return (
@@ -71,7 +95,7 @@ function ShowAllArticlesButton() {
 
 export default function Writing() {
 
-	const posts = writing.articles.map((article): Post => {
+	const posts = writing.articles.map((article, index): Post => {
 		const [jy, jm, jd] = en(article.publishedAt).split("/").map(Number);
 
 		return {
@@ -81,7 +105,8 @@ export default function Writing() {
 			category: article.category,
 			date: toGregorian(jy, jm, jd),
 			readingTime: article.readingMinutes,
-			author: { name: site.name }
+			author: { name: site.name },
+			cover: <ArticleCover index={index} />,
 		};
 	})
 

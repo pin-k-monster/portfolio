@@ -91,7 +91,7 @@ export default function About() {
                         </Card>
                     </div>
 
-                    <div className="space-y-8">
+                    <div className="space-y-5">
                         <div className="flex flex-col gap-3">
                             <Badge variant="brand">درباره‌ی من</Badge>
                             <h2 id="about-title" className="text-2xl sm:text-3xl font-bold leading-tight">
@@ -101,7 +101,7 @@ export default function About() {
                             </h2>
                         </div>
 
-                        <div className="space-y-4 text-[15px] leading-8 text-muted-foreground">
+                        <div className="space-y-4 text-[15px] leading-8 text-muted-foreground sm:text-[17px]">
                             {about.bio.map((paragraph, i) => {
                                 if (!paragraph.includes(about.focusKeyword)) {
                                     return <p key={i}>{paragraph}</p>;

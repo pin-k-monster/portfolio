@@ -36,15 +36,6 @@ export const openSource: OpenSourceContent = {
       forks: 55,
       url: "https://github.com/arian-rezaei/fa-tools",
     },
-    {
-      id: "build-ui",
-      name: "build.tools",
-      description: "مجموعه‌ی الگوهای UI خوب فارسی برای React.",
-      language: "TypeScript",
-      stars: 210,
-      forks: 18,
-      url: "https://github.com/arian-rezaei/build-tools",
-    },
   ],
   githubCta: {
     label: "دیدن بقیه‌ی مخزن‌ها در گیت‌هاب",

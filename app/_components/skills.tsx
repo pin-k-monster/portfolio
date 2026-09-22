@@ -43,11 +43,17 @@
  * ‌- نام فناوری‌های لاتین داخل متن فارسی با dir مناسب همان span (نه کل پاراگراف)؛ عدد نیست.
  */
 
-import { Marquee } from "@/components/animations/marquee";
 import { Reveal } from "@/components/animations/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { skills } from "@/lib/site/skills/data";
+import type { Proficiency } from "@/lib/site/skills/type";
+
+const PROFICIENCY_STYLES: Record<Proficiency, { variant: "brand" | "secondary" | "outline"; className: string }> = {
+	مسلط: { variant: "brand", className: "rounded-full border border-brand/15 bg-brand/10 px-2.5" },
+	مقدماتی: { variant: "secondary", className: "rounded-full border border-border bg-secondary/60 px-2.5" },
+	آشنا: { variant: "outline", className: "rounded-full border border-foreground/10 px-2.5" },
+};
 
 // Export: تأمین export پیش‌فرض default function Skills() در پیاده‌سازی بعدی.
 
@@ -61,17 +67,9 @@ export default function Skills() {
                         <h2 className="text-3xl font-bold">
                             {skills.title}
                         </h2>
-
-                        <Marquee className="my-5">
-                            {
-                                skills.marquee.map((s, index) => (
-                                    <Badge className="text-muted-foreground" key={index}>{s}</Badge>
-                                ))
-                            }
-                        </Marquee>
                     </div>
                 </Reveal>
-                <Reveal delay={150} className="w-full">
+                <Reveal delay={150} className="w-full mt-5">
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 items-stretch gap-4 w-full">
                         {
                             skills.groups.map((g) => (
@@ -82,15 +80,22 @@ export default function Skills() {
                                             {g.title}
                                         </CardTitle>
                                     </CardHeader>
-                                    <CardContent dir="ltr" className="space-y-2">
-                                        {g.skills.map((s) => (
-                                            <div key={s.id} className="flex items-center justify-between rounded-md border border-foreground/15 py-1 px-2 text-sm">
-                                                {s.name}
-                                                <span className="text-xs text-muted-foreground">
-                                                    {s.proficiency}
-                                                </span>
-                                            </div>
-                                        ))}
+                                    <CardContent className="space-y-2.5">
+                                        {g.skills.map((s) => {
+                                            const level = s.proficiency ? PROFICIENCY_STYLES[s.proficiency] : null;
+                                            return (
+                                                <div key={s.id} className="flex items-center justify-between gap-2">
+                                                    <span dir="ltr" className="text-sm font-medium text-foreground/90">
+                                                        {s.name}
+                                                    </span>
+                                                    {level ? (
+                                                        <Badge variant={level.variant} className={level.className}>
+                                                            {s.proficiency}
+                                                        </Badge>
+                                                    ) : null}
+                                                </div>
+                                            );
+                                        })}
                                     </CardContent>
                                 </Card>
                             ))

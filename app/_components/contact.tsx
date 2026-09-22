@@ -205,7 +205,7 @@ export default function Contact() {
 									</Button>
 								</div>
 							) : (
-								<form className="space-y-4" onSubmit={form.handleSubmit} noValidate>
+								<form className="space-y-2.5" onSubmit={form.handleSubmit} noValidate>
 									<FormField
 										label={fieldByName("name")?.label ?? "نام"}
 										htmlFor={nameField.id}
@@ -220,6 +220,7 @@ export default function Contact() {
 											onChange={nameField.onChange}
 											onBlur={nameField.onBlur}
 											placeholder={fieldByName("name")?.placeholder}
+											className="placeholder:text-foreground/70!"
 											aria-invalid={nameField.error ? true : undefined}
 										/>
 									</FormField>
@@ -240,6 +241,7 @@ export default function Contact() {
 											onChange={emailField.onChange}
 											onBlur={emailField.onBlur}
 											placeholder={fieldByName("email")?.placeholder}
+											className="placeholder:text-foreground/70!"
 											aria-invalid={emailField.error ? true : undefined}
 										/>
 									</FormField>
@@ -273,11 +275,18 @@ export default function Contact() {
 											maxLength={fieldByName("message")?.maxLength}
 											autoResize
 											showCount
+											className="placeholder:text-foreground/70!"
 											aria-invalid={messageField.error ? true : undefined}
 										/>
 									</FormField>
 
-									<Button variant="brand" size="lg" type="submit" className="w-full cursor-pointer" disabled={form.submitting}>
+									<Button
+										variant="brand"
+										size="lg"
+										type="submit"
+										className="w-full cursor-pointer"
+										disabled={form.submitting}
+									>
 										{form.submitting && <LoaderCircle className="size-4 animate-spin" />}
 										{form.submitting ? contact.form.pendingLabel : contact.form.submitLabel}
 									</Button>

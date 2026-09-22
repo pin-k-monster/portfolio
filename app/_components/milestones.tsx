@@ -66,12 +66,12 @@ export default function Milestones() {
 				</Reveal>
 
 				<Reveal delay={150}>
-					<dl className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-4">
+					<dl className="relative mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-4">
 						{milestones.numbers.map((n) =>
 							n.value !== 0 ? (
 								<div
 									key={n.id}
-									className="cursor-default flex flex-col items-center gap-1 bg-background p-6 text-center transition-colors duration-200 hover:bg-card/60 sm:p-8"
+									className="flex cursor-default flex-col items-center justify-center gap-1 bg-background px-4 py-7 text-center transition-colors duration-200 hover:bg-card/60 sm:py-8"
 								>
 									<dt className="order-2 text-sm text-muted-foreground">{n.label}</dt>
 									<dd className="order-1 m-0">

@@ -107,13 +107,13 @@ export default function OpenSource() {
 									</Badge>
 								</div>
 								<p className="text-sm leading-6 text-muted-foreground">{repo.description}</p>
-								<div className="mt-auto flex items-center gap-4 border-t border-border pt-3 text-sm text-muted-foreground">
-									<span className="inline-flex items-center gap-1.5 ">
-										<Star className="size-4" />
+								<div className="mt-auto flex items-center gap-4 border-t border-border pt-3 text-sm text-foreground/85">
+									<span className="inline-flex items-center gap-1.5">
+										<Star className="size-4.5 text-foreground/80" />
 										{fa(repo.stars)}
 									</span>
-									<span className="inline-flex items-center gap-1.5 ">
-										<GitFork className="size-4" />
+									<span className="inline-flex items-center gap-1.5">
+										<GitFork className="size-4.5 text-foreground/80" />
 										{fa(repo.forks)}
 									</span>
 								</div>

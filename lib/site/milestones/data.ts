@@ -10,7 +10,7 @@ export const milestones: MilestonesContent = {
   numbers: [
     { id: "years", value: 9, unit: "+", label: "سال تجربه‌ی حرفه‌ای", hint: "از ۱۳۹۴ تاکنون" },
     { id: "projects", value: 120, unit: "+", label: "پروژه و تسک تحویل‌شده", hint: "شامل سرویس‌های عمومی و داخلی" },
-    { id: "code", value: 300, unit: "K+", label: "خط کد نوشته‌شده", hint: "در سرویس‌های تولیدی" },
+    { id: "code", value: 3000, unit: "+", label: "خط کد نوشته‌شده", hint: "در سرویس‌های تولیدی" },
     { id: "posts", value: 40, unit: "+", label: "مقاله و مطلب فنی", hint: "در وبلاگ و رسانه‌ها" },
   ],
   honors: [

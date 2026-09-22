@@ -53,6 +53,25 @@ import { Reveal } from "@/components/animations/reveal";
 import { Badge } from "@/components/ui/badge";
 import { experience } from "@/lib/site/experience/data";
 
+/** اعداد و درصدهای فارسی را داخل نکات برجسته (برند) می‌کند تا «دیوارِ متن» شکسته شود. */
+function HighlightMetrics({ text }: { text: string }) {
+	const pattern = /[۰-۹0-9][۰-۹0-9\.,٫٬٪+]*/g;
+	const chunks: React.ReactNode[] = [];
+	let last = 0;
+	for (const match of text.matchAll(pattern)) {
+		const idx = match.index!;
+		if (idx > last) chunks.push(text.slice(last, idx));
+		chunks.push(
+			<span key={idx} className="font-bold text-brand">
+				{match[0]}
+			</span>,
+		);
+		last = idx + match[0].length;
+	}
+	if (last < text.length) chunks.push(text.slice(last));
+	return <>{chunks}</>;
+}
+
 export default function Experience() {
 	return (
 		<section id="experience" aria-labelledby="experience-title" className="pb-16 sm:pb-24">
@@ -71,7 +90,7 @@ export default function Experience() {
 						const isCurrent = job.period.end === null;
 						return (
 							<li key={job.id} className="relative">
-								<Reveal delay={index * 120} className="p-5 border-muted border hover:bg-muted cursor-default transition-colors">
+								<Reveal delay={index * 120} className="p-5 border-border border hover:bg-muted cursor-default transition-colors">
 									<div className="flex flex-wrap items-center gap-x-2 gap-y-1">
 										<h3 className="text-sm font-bold text-foreground sm:text-base">{job.role}</h3>
 										<span className="text-muted-foreground">—</span>
@@ -100,9 +119,9 @@ export default function Experience() {
 
 									<ul className="mt-3 space-y-1.5">
 										{job.points.map((point, pointIndex) => (
-											<li key={pointIndex} className="flex items-start gap-2 text-sm leading-6 text-foreground/80">
+											<li key={pointIndex} className="flex items-start gap-2 text-sm leading-6 text-foreground/90">
 												<BadgeCheck className="mt-1.5 size-4 shrink-0 text-brand" />
-												<span>{point}</span>
+												<HighlightMetrics text={point} />
 											</li>
 										))}
 									</ul>
@@ -110,7 +129,7 @@ export default function Experience() {
 									<ul className="mt-4 flex flex-wrap gap-1.5" dir="ltr">
 										{job.stack.map((tech) => (
 											<li key={tech.id}>
-												<Badge variant="outline" className="text-muted-foreground">
+												<Badge variant="default" className="rounded-md border border-foreground/10 bg-border/60 px-2.5">
 													{tech.name}
 												</Badge>
 											</li>

@@ -22,8 +22,10 @@ function ProjectCover({ image, className }: { image: ImageAsset; className?: str
 
 	if (state === "error") {
 		return (
-			<div className={cn("relative flex aspect-video w-full shrink-0 items-center justify-center bg-secondary", className)}>
-				<ImageOff className="size-8 text-muted-foreground/50" />
+			<div className={cn("relative flex aspect-video w-full shrink-0 items-center justify-center overflow-hidden bg-secondary", className)}>
+				<div aria-hidden className="absolute inset-0 bg-linear-to-br from-brand/25 via-card to-secondary" />
+				<div aria-hidden className="absolute -inset-x-8 -inset-y-4 bg-brand/15 blur-3xl" />
+				<ImageOff className="relative size-8 text-brand/70" />
 			</div>
 		);
 	}
@@ -68,9 +70,9 @@ function ProjectCard({ project, onOpen, spotlight }: { project: Project; onOpen:
 							</li>
 						))}
 					</ul>
-					<Button variant="ghost" size="sm" className="shrink-0 cursor-pointer" onClick={onOpen}>
+					<Button variant="ghost" size="sm" className="group shrink-0 cursor-pointer" onClick={onOpen}>
 						جزئیات
-						<ArrowLeft />
+						<ArrowLeft className="transition-transform duration-200 group-hover:-translate-x-0.5" />
 					</Button>
 				</div>
 			</div>
@@ -183,7 +185,7 @@ export default function Projects() {
 						<ul className="mt-4 flex flex-wrap gap-1.5" dir="ltr">
 							{selected.tech.map((t) => (
 								<li key={t.id}>
-									<Badge variant="secondary">{t.name}</Badge>
+									<Badge variant="secondary" className="rounded-md border border-foreground/10 bg-border/60 px-2.5">{t.name}</Badge>
 								</li>
 							))}
 						</ul>
