@@ -49,7 +49,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { skills } from "@/lib/site/skills/data";
 import type { Proficiency } from "@/lib/site/skills/type";
-import Image from "next/image";
 
 const PROFICIENCY_STYLES: Record<Proficiency, { variant: "brand" | "secondary" | "outline"; className: string }> = {
     مسلط: { variant: "brand", className: "rounded-full border border-brand bg-brand px-2.5 text-[13px]! text-brand-foreground!" },
@@ -103,6 +102,7 @@ export default function Skills() {
                                                         </Badge>
                                                     ) : null}
                                                     <div dir="ltr" className="flex items-center gap-x-2 min-w-0 flex-1 truncate text-left text-sm font-medium text-foreground/90">
+                                                        {/* eslint-disable-next-line @next/next/no-img-element */}
                                                         <img width={20} height={20} alt="" src={`${s.icon}/ffffff`} />
                                                         {s.name}
                                                     </div>

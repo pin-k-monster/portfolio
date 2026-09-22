@@ -70,17 +70,13 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Menu, DownloadCloud } from "lucide-react";
 import { ShineButton } from "@/components/animations/shine-button";
 import Logo from "@/components/common/logo";
-import ThemeToggleButton from "@/components/common/theme-toggle-button";
 import { Sheet } from "@/components/ui/sheet";
-import { Switch } from "@/components/ui/switch";
-import { useTheme } from "@/providers/theme-provider";
 import { site } from "@/lib/site/config";
 import { navbar } from "@/lib/site/navbar/data";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 function MobileSheetContent({ setOpen, activeId }: { setOpen: Dispatch<SetStateAction<boolean>>; activeId: string }) {
-    const { theme, setTheme } = useTheme();
     return (
         <div className="flex h-full flex-col">
             <nav aria-label="پیمایش موبایل">
@@ -99,7 +95,7 @@ function MobileSheetContent({ setOpen, activeId }: { setOpen: Dispatch<SetStateA
                     ))}
                 </ul>
             </nav>
-            <div className="justify-end flex flex-1 flex-col gap-3">
+            <div className="justify-end flex flex-1 flex-col">
                 <Link href={site.resume.href} onClick={() => setOpen(false)}
                     download={site.resume.download}>
                     <ShineButton className="w-full cursor-pointer" size="md">
@@ -107,13 +103,6 @@ function MobileSheetContent({ setOpen, activeId }: { setOpen: Dispatch<SetStateA
                         <DownloadCloud />
                     </ShineButton>
                 </Link>
-                <label className="flex items-center justify-between rounded-lg border border-border px-4 py-3">
-                    <span className="text-sm font-medium">حالت تیره</span>
-                    <Switch
-                        checked={theme === "dark"}
-                        onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
-                    />
-                </label>
             </div>
         </div>
     )
@@ -176,8 +165,7 @@ export default function Navbar() {
                             ))}
                         </ul>
                     </div>
-                    <div className="gap-x-2 flex justify-end">
-                        <ThemeToggleButton />
+                    <div className="flex justify-end">
                         <Link href={site.resume.href} download={site.resume.download}>
                             <ShineButton size="sm">
                                 {site.resume.label}

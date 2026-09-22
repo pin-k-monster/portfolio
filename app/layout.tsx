@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { vazirmatn } from "./fonts";
 import { site } from "@/lib/site/config";
-import { ThemeProvider } from "@/providers/theme-provider";
 import { ToastProvider } from "@/components/ui/toast";
 import Navbar from "./_components/navbar";
 import Footer from "./_components/footer";
@@ -18,11 +17,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             className={`${vazirmatn.variable} scroll-smooth h-full antialiased`}
             dir="rtl">
             <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
-                <ThemeProvider>
-                    <Navbar />
-                    <ToastProvider>{children}</ToastProvider>
-                    <Footer />
-                </ThemeProvider>
+                <Navbar />
+                <ToastProvider>{children}</ToastProvider>
+                <Footer />
             </body>
         </html>
     );
