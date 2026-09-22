@@ -15,6 +15,8 @@ export interface Skill {
   name: string;
   /** سطح اختیاری؛ اگر نباشد مهارت به‌صورت خنثی نمایش داده می‌شود. */
   proficiency?: Proficiency;
+  /** آیکون */
+  icon: string;
 }
 
 /** یک دسته‌ی مهارتی؛ در یک کارت جدا نمایش داده می‌شود. */

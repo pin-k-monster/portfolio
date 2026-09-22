@@ -1,8 +1,11 @@
 /**
  * محتوای مهارت‌ها (این فایل کد واقعی است).
+ *
  * نوار marquee نیازی به اعداد فارسی ندارد؛ نام فناوری‌هاست.
  */
+
 import { CodeXml, DatabaseSearch, PenTool, Wrench } from "lucide-react";
+
 import type { SkillsContent } from "./type";
 
 export const skills: SkillsContent = {
@@ -28,10 +31,30 @@ export const skills: SkillsContent = {
       title: "زبان‌های برنامه‌نویسی",
       icon: CodeXml,
       skills: [
-        { id: "ts", name: "TypeScript", proficiency: "مقدماتی" },
-        { id: "go", name: "Go", proficiency: "مقدماتی" },
-        { id: "py", name: "Python", proficiency: "مسلط" },
-        { id: "rust", name: "Rust", proficiency: "آشنا" },
+        {
+          id: "ts",
+          name: "TypeScript",
+          proficiency: "مقدماتی",
+          icon: "https://cdn.simpleicons.org/typescript",
+        },
+        {
+          id: "go",
+          name: "Go",
+          proficiency: "مقدماتی",
+          icon: "https://cdn.simpleicons.org/go",
+        },
+        {
+          id: "py",
+          name: "Python",
+          proficiency: "مسلط",
+          icon: "https://cdn.simpleicons.org/python",
+        },
+        {
+          id: "rust",
+          name: "Rust",
+          proficiency: "آشنا",
+          icon: "https://cdn.simpleicons.org/rust",
+        },
       ],
     },
     {
@@ -39,10 +62,30 @@ export const skills: SkillsContent = {
       title: "فرانت‌اند و رابط کاربری",
       icon: PenTool,
       skills: [
-        { id: "react", name: "React", proficiency: "مقدماتی" },
-        { id: "next", name: "Next.js", proficiency: "مقدماتی" },
-        { id: "tailwind", name: "Tailwind CSS", proficiency: "مقدماتی" },
-        { id: "pwa", name: "PWA", proficiency: "مسلط" },
+        {
+          id: "react",
+          name: "React",
+          proficiency: "مقدماتی",
+          icon: "https://cdn.simpleicons.org/react",
+        },
+        {
+          id: "next",
+          name: "Next.js",
+          proficiency: "مقدماتی",
+          icon: "https://cdn.simpleicons.org/nextdotjs",
+        },
+        {
+          id: "tailwind",
+          name: "Tailwind CSS",
+          proficiency: "مقدماتی",
+          icon: "https://cdn.simpleicons.org/tailwindcss",
+        },
+        {
+          id: "pwa",
+          name: "PWA",
+          proficiency: "مسلط",
+          icon: "https://cdn.simpleicons.org/pwa",
+        },
       ],
     },
     {
@@ -50,10 +93,30 @@ export const skills: SkillsContent = {
       title: "بک‌اند و داده",
       icon: DatabaseSearch,
       skills: [
-        { id: "node", name: "Node.js", proficiency: "مقدماتی" },
-        { id: "nest", name: "NestJS", proficiency: "مسلط" },
-        { id: "pg", name: "PostgreSQL", proficiency: "مقدماتی" },
-        { id: "redis", name: "Redis", proficiency: "مسلط" },
+        {
+          id: "node",
+          name: "Node.js",
+          proficiency: "مقدماتی",
+          icon: "https://cdn.simpleicons.org/nodedotjs",
+        },
+        {
+          id: "nest",
+          name: "NestJS",
+          proficiency: "مسلط",
+          icon: "https://cdn.simpleicons.org/nestjs",
+        },
+        {
+          id: "pg",
+          name: "PostgreSQL",
+          proficiency: "مقدماتی",
+          icon: "https://cdn.simpleicons.org/postgresql",
+        },
+        {
+          id: "redis",
+          name: "Redis",
+          proficiency: "مسلط",
+          icon: "https://cdn.simpleicons.org/redis",
+        },
       ],
     },
     {
@@ -61,10 +124,30 @@ export const skills: SkillsContent = {
       title: "زیرساخت و ابزار",
       icon: Wrench,
       skills: [
-        { id: "docker", name: "Docker", proficiency: "مسلط" },
-        { id: "k8s", name: "Kubernetes", proficiency: "آشنا" },
-        { id: "git", name: "Git / CI-CD", proficiency: "مقدماتی" },
-        { id: "aws", name: "AWS", proficiency: "مسلط" },
+        {
+          id: "docker",
+          name: "Docker",
+          proficiency: "مسلط",
+          icon: "https://cdn.simpleicons.org/docker",
+        },
+        {
+          id: "k8s",
+          name: "Kubernetes",
+          proficiency: "آشنا",
+          icon: "https://cdn.simpleicons.org/kubernetes",
+        },
+        {
+          id: "git",
+          name: "Git / CI-CD",
+          proficiency: "مقدماتی",
+          icon: "https://cdn.simpleicons.org/git",
+        },
+        {
+          id: "firebase",
+          name: "Firebase",
+          proficiency: "مسلط",
+          icon: "https://cdn.simpleicons.org/firebase",
+        },
       ],
     },
   ],

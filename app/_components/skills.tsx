@@ -43,16 +43,18 @@
  * ‌- نام فناوری‌های لاتین داخل متن فارسی با dir مناسب همان span (نه کل پاراگراف)؛ عدد نیست.
  */
 
+import { Marquee } from "@/components/animations/marquee";
 import { Reveal } from "@/components/animations/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { skills } from "@/lib/site/skills/data";
 import type { Proficiency } from "@/lib/site/skills/type";
+import Image from "next/image";
 
 const PROFICIENCY_STYLES: Record<Proficiency, { variant: "brand" | "secondary" | "outline"; className: string }> = {
-	مسلط: { variant: "brand", className: "rounded-full border border-brand/15 bg-brand/10 px-2.5" },
-	مقدماتی: { variant: "secondary", className: "rounded-full border border-border bg-secondary/60 px-2.5" },
-	آشنا: { variant: "outline", className: "rounded-full border border-foreground/10 px-2.5" },
+    مسلط: { variant: "brand", className: "rounded-full border border-brand bg-brand px-2.5 text-[13px]! text-brand-foreground!" },
+    مقدماتی: { variant: "secondary", className: "rounded-full border border-border bg-secondary px-2.5 text-[13px]! text-secondary-foreground!" },
+    آشنا: { variant: "outline", className: "rounded-full border border-foreground/25 px-2.5 text-[13px]! text-foreground/75!" },
 };
 
 // Export: تأمین export پیش‌فرض default function Skills() در پیاده‌سازی بعدی.
@@ -67,32 +69,43 @@ export default function Skills() {
                         <h2 className="text-3xl font-bold">
                             {skills.title}
                         </h2>
+
+                        <Marquee className="my-5">
+                            {
+                                skills.marquee.map((s, index) => (
+                                    <Badge className="text-muted-foreground" key={index}>{s}</Badge>
+                                ))
+                            }
+                        </Marquee>
                     </div>
                 </Reveal>
-                <Reveal delay={150} className="w-full mt-5">
+                <Reveal delay={150} className="w-full">
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 items-stretch gap-4 w-full">
                         {
                             skills.groups.map((g) => (
-                                <Card key={g.id} className="border-2 hover:border-brand/25 hover:shadow-xl hover:-translate-y-1 transition-all cursor-default">
-                                    <CardHeader>
+                                <Card key={g.id} className="relative overflow-hidden border-2 hover:border-brand/25 hover:shadow-xl hover:-translate-y-1 transition-all cursor-default">
+                                    <CardHeader className="relative z-10">
                                         <CardTitle className="flex items-center gap-x-2">
-                                            <g.icon />
+                                            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
+                                                <g.icon size={18} strokeWidth={2} />
+                                            </span>
                                             {g.title}
                                         </CardTitle>
                                     </CardHeader>
-                                    <CardContent className="space-y-2.5">
+                                    <CardContent className="relative z-10 flex flex-col divide-y divide-border/60">
                                         {g.skills.map((s) => {
                                             const level = s.proficiency ? PROFICIENCY_STYLES[s.proficiency] : null;
                                             return (
-                                                <div key={s.id} className="flex items-center justify-between gap-2">
-                                                    <span dir="ltr" className="text-sm font-medium text-foreground/90">
-                                                        {s.name}
-                                                    </span>
+                                                <div key={s.id} className="flex items-center gap-2 py-2">
                                                     {level ? (
-                                                        <Badge variant={level.variant} className={level.className}>
+                                                        <Badge variant={level.variant} className={`shrink-0 w-16 text-center justify-center ${level.className}`}>
                                                             {s.proficiency}
                                                         </Badge>
                                                     ) : null}
+                                                    <div dir="ltr" className="flex items-center gap-x-2 min-w-0 flex-1 truncate text-left text-sm font-medium text-foreground/90">
+                                                        <img width={20} height={20} alt="" src={`${s.icon}/ffffff`} />
+                                                        {s.name}
+                                                    </div>
                                                 </div>
                                             );
                                         })}
