@@ -156,7 +156,7 @@ export default function Navbar() {
 
     return (
         <>
-            <header className="py-1 px-4 sticky top-0 backdrop-blur-md bg-background/75 z-50 border-b border-b-muted">
+            <header className="py-1 px-4 sticky top-0 backdrop-blur-md bg-background/75 z-50 border-b border-b-border">
                 <div className="container mx-auto hidden items-center lg:grid lg:grid-cols-[1fr_2fr_1fr]">
                     <div>
                         <Logo />
