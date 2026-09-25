@@ -57,7 +57,7 @@ export default function Skills() {
                                                     ) : null}
                                                     <div dir="ltr" className="flex items-center gap-x-2 min-w-0 flex-1 truncate text-left text-sm font-medium text-foreground/90">
                                                         {s.icon ? (
-                                                            <Image src={s.icon} width={20} height={20} alt="" className="size-5 shrink-0" />
+                                                            <Image src={s.icon} width={20} height={20} alt="" className="size-5 shrink-0 invert" />
                                                         ) : null}
                                                         {s.name}
                                                     </div>
