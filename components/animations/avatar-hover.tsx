@@ -46,7 +46,7 @@ export function AvatarHover({
             >
               {p.name}
             </span>
-            <Avatar name={p.name} src={p.src} size={size} className="ring-2 ring-background" />
+            <Avatar name={p.name} src={p.src} size={size} className="ring-2 ring-foreground" />
           </div>
         );
       })}
