@@ -1,7 +1,3 @@
-/**
- * محتوای نوبار (این فایل کد واقعی است).
- * دکمه‌ی CTA از پیکربندی مرکزی می‌آید تا با فوتر/CTA هماهنگ بماند.
- */
 import type { NavbarContent } from "./type";
 import { site } from "../config";
 
@@ -10,6 +6,7 @@ export const navbar: NavbarContent = {
     { id: "about", label: "درباره", href: "#about" },
     { id: "skills", label: "مهارت‌ها", href: "#skills" },
     { id: "experience", label: "تجربه", href: "#experience" },
+    { id: "testimonials", label: "نظرات", href: "#testimonials" },
     { id: "projects", label: "پروژه‌ها", href: "#projects" },
     { id: "milestones", label: "دستاوردها", href: "#milestones" },
     { id: "open-source", label: "متن‌باز", href: "#open-source" },

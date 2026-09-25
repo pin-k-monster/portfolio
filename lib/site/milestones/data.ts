@@ -1,7 +1,3 @@
-/**
- * محتوای دستاوردها (این فایل کد واقعی است).
- * value ها عدد لاتین‌اند چون counter مسئول فارسی‌سازی است (faNumber).
- */
 import type { MilestonesContent } from "./type";
 
 export const milestones: MilestonesContent = {

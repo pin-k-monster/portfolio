@@ -1,6 +1,3 @@
-/**
- * محتوای درباره‌ی من (این فایل کد واقعی است).
- */
 import type { AboutContent } from "./type";
 import { site } from "../config";
 

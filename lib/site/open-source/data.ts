@@ -1,6 +1,3 @@
-/**
- * محتوای متن‌باز/گیت‌هاب (این فایل کد واقعی است).
- */
 import type { OpenSourceContent } from "./type";
 
 export const openSource: OpenSourceContent = {

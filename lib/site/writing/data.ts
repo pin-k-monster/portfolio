@@ -1,7 +1,3 @@
-/**
- * محتوای مقالات/نوشته‌ها (این فایل کد واقعی است).
- * publishedAt از قبل شمسی و با اعداد فارسی است؛ کامپوننت باید همان را مستقیم نشان دهد.
- */
 import type { WritingContent } from "./type";
 
 export const writing: WritingContent = {

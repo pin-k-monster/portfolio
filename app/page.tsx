@@ -4,6 +4,7 @@ import About from "./_components/about";
 import Skills from "./_components/skills";
 import Experience from "./_components/experience";
 import Projects from "./_components/projects";
+import Testimonials from "./_components/testimonials";
 import Milestones from "./_components/milestones";
 import OpenSource from "./_components/open-source";
 import Writing from "./_components/writing";
@@ -18,6 +19,7 @@ export default function Home() {
             <About />
             <Skills />
             <Experience />
+            <Testimonials />
             <Projects />
             <Milestones />
             <OpenSource />

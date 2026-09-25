@@ -1,7 +1,3 @@
-/**
- * محتوای پروژه‌ها (این فایل کد واقعی است).
- * تصاویر placeholder هستن و باید در /public/images/projects قرار بگیرند.
- */
 import type { ProjectsContent } from "./type";
 
 export const projects: ProjectsContent = {

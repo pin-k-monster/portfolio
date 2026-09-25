@@ -1,9 +1,3 @@
-/**
- * محتوای مهارت‌ها (این فایل کد واقعی است).
- *
- * نوار marquee نیازی به اعداد فارسی ندارد؛ نام فناوری‌هاست.
- */
-
 import { CodeXml, DatabaseSearch, PenTool, Wrench } from "lucide-react";
 
 import type { SkillsContent } from "./type";

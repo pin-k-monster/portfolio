@@ -102,7 +102,7 @@ export default function Projects() {
 	const featuredId = visible.find((p) => p.featured)?.id;
 
 	return (
-		<section id="projects" aria-labelledby="projects-title" className="pb-16 sm:pb-24">
+		<section id="projects" aria-labelledby="projects-title" className="py-16 sm:py-24">
 			<div className="container mx-auto px-4">
 				<Reveal>
 					<div className="flex flex-col items-center gap-3 text-center">

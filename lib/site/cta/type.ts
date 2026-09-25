@@ -1,7 +1,3 @@
-/**
- * تایپ‌های بخش CTA پایانی (این فایل کد واقعی است).
- * ساختار دقیقاً مشابه بلاک `cta` رجیستری {title, description?, action, note} است.
- */
 import type { CtaLink } from "../shared";
 
 /** کل محتوای CTA پایانی. */

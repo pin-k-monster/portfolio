@@ -1,6 +1,3 @@
-/**
- * تایپ‌های بخش مقالات/نوشته‌ها (این فایل کد واقعی است).
- */
 import { type CtaLink, type ImageAsset, type TechTag } from "../shared";
 
 /** یک مقاله. */

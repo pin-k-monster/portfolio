@@ -121,7 +121,9 @@ export default function Experience() {
 										{job.points.map((point, pointIndex) => (
 											<li key={pointIndex} className="flex items-start gap-2 text-sm leading-6 text-foreground/90">
 												<BadgeCheck className="mt-1.5 size-4 shrink-0 text-brand" />
-												<HighlightMetrics text={point} />
+												<div>
+													<HighlightMetrics text={point} />
+												</div>
 											</li>
 										))}
 									</ul>

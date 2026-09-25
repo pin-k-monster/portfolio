@@ -1,7 +1,3 @@
-/**
- * محتوای تماس (این فایل کد واقعی است).
- * ایمیل و شبکه‌های اجتماعی از پیکربندی مرکزی می‌آیند.
- */
 import type { ContactContent } from "./type";
 import { site } from "../config";
 

@@ -1,8 +1,3 @@
-/**
- * محتوای تجربه (این فایل کد واقعی است).
- * برچسب بازه با formatJalali از lib/jalali ساخته می‌شود: «از ۱۴۰۲ تاکنون».
- * چون site فارسی/شمسی است، تاریخ‌ها این‌جا Gregorian واقعی‌اند و فقط برای نمایش تبدیل می‌شوند.
- */
 import { formatJalali } from "../../../lib/jalali";
 import type { ExperienceContent, ExperiencePeriod } from "./type";
 

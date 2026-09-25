@@ -1,8 +1,3 @@
-/**
- * ارسال پیام فرم تماس (این فایل کد واقعی است).
- * اعتبارسنجی سمت سرور + ارسال ایمیل با nodemailer از طریق متغیرهای محیطی.
- * بدون تنظیم SMTP در .env، با خطای واضح ۵۰۰ پاسخ می‌دهد تا چیزی «الکی» نرسد.
- */
 import type { NextRequest } from "next/server";
 import nodemailer from "nodemailer";
 import { isIranMobile } from "@/lib/persian";

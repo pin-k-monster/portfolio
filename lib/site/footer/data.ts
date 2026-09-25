@@ -1,7 +1,3 @@
-/**
- * محتوای فوتر (این فایل کد واقعی است).
- * پیمایش و ایمیل از navbar و config می‌آید تا تکراری نشود.
- */
 import type { FooterContent } from "./type";
 import { navbar } from "../navbar/data";
 import { site } from "../config";

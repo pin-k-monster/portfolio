@@ -222,6 +222,16 @@ body {
 }
 /* --- vibefarsi:flicker-end --- */
 
+/* --- vibefarsi:aurora --- */
+@keyframes aurora {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-8%, 6%) scale(1.15); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="aurora"] { animation: none !important; }
+}
+/* --- vibefarsi:aurora-end --- */
+
 /* --- vibefarsi:radial-intro --- */
 @keyframes radial-orbit {
   from { transform: rotate(var(--start-angle, 0deg)); }
@@ -232,3 +242,37 @@ body {
   to { transform: translate(-50%, calc(-50% - var(--orbit-r, 80px))) rotate(calc(var(--start-angle, 0deg) * -1 - 360deg)); }
 }
 /* --- vibefarsi:radial-intro-end --- */
+
+/* --- vibefarsi:streaming-text --- */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+/* --- vibefarsi:streaming-text-end --- */
+
+/* --- vibefarsi:border-beam --- */
+@property --beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes beam { to { --beam-angle: 360deg; } }
+/* --- vibefarsi:border-beam-end --- */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-vf-motion="benefits-process"],
+  [data-vf-motion="benefits-process"] * {
+    animation-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- vibefarsi:retro-grid --- */
+@keyframes grid-flow {
+  from { background-position: 0 0; }
+  to { background-position: 0 48px; }
+}
+/* --- vibefarsi:retro-grid-end --- */
