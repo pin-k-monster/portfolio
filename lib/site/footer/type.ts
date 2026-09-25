@@ -26,7 +26,7 @@ export interface FooterContent {
   email: string;
   /** عنوان ستون شبکه‌های اجتماعی. */
   socialsTitle: string;
-  /** متن کپی‌رایت با سال شمسی: مثل «۱۴۰۵ © آرین رضایی». */
+  /** متن کپی‌رایت با سال شمسی: مثل «۱۴۰۵ © کیارش جمالی». */
   copyright: string;
   /** قدردانی/اعتبار ساخت. */
   credit: string;

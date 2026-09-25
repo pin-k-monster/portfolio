@@ -4,7 +4,7 @@ import { site } from "../config";
 export const about: AboutContent = {
   avatar: {
     src: "/avatar.png",
-    alt: "پرتره‌ی آرین رضایی",
+    alt: "پرتره‌ی کیارش جمالی",
     width: 400,
     height: 400,
   },

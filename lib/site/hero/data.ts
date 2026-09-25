@@ -13,7 +13,7 @@ export const hero: HeroContent = {
   terminalTitle: "درباره‌ی من",
   terminalLines: [
     { type: "cmd", text: "whoami" },
-    { type: "ok", text: "آرین رضایی — توسعه‌دهنده‌ی فول‌استک از تهران" },
+    { type: "ok", text: "کیارش جمالی — توسعه‌دهنده‌ی فول‌استک از تهران" },
     { type: "cmd", text: "cat skills.txt" },
     { type: "out", text: "TypeScript React Next.js Go PostgreSQL Redis Docker" },
     { type: "cmd", text: "npm run hire" },
