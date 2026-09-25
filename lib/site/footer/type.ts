@@ -1,33 +1,11 @@
-import type { NavItem } from "../navbar/type";
-
-/** یک ستون لینک در فوتر. */
-export interface FooterColumn {
-  /** عنوان ستون. */
-  title: string;
-  /** لینک‌های ستون (بی‌نام). */
-  links: { label: string; href: string }[];
-}
-
-/** کل محتوای فوتر. */
+/**
+ * Content of the footer. The footer is intentionally minimal: a copyright line
+ * and a credit line. Build `copyright` from `site.name` and a Jalali year (see
+ * `data.ts`) so it never drifts out of sync with the rest of the site.
+ */
 export interface FooterContent {
-  /** نام برند/لوگو. */
-  brand: string;
-  /** یک‌خط درباره‌ی برند. */
-  about: string;
-  /** عنوان ستون پیمایش. */
-  navTitle: string;
-  /** آیتم‌های پیمایش (از navbar تا لنگرها یکسان بمانند). */
-  nav: NavItem[];
-  /** ستون‌های لینک اضافی. */
-  columns: FooterColumn[];
-  /** عنوان ستون تماس. */
-  contactTitle: string;
-  /** ایمیل مستقیم (از config). */
-  email: string;
-  /** عنوان ستون شبکه‌های اجتماعی. */
-  socialsTitle: string;
-  /** متن کپی‌رایت با سال شمسی: مثل «۱۴۰۵ © کیارش جمالی». */
+  /** Copyright line, e.g. "© ۱۴۰۵ کیارش جمالی". */
   copyright: string;
-  /** قدردانی/اعتبار ساخت. */
+  /** Credit line under the copyright, e.g. "Built with Next.js and VibeFarsi". */
   credit: string;
 }

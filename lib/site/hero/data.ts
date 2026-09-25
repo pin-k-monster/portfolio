@@ -8,7 +8,8 @@ export const hero: HeroContent = {
   rotatingRoles: ["فول‌استک", "فرانت‌اند", "محصول", "متن‌باز"],
   description:
     "بیش از ۹ سال است که محصولات وب می‌سازم؛ از طراحی رابط تا زیرساخت. عاشق جزئیات پوسته و مغز هستم و باور دارم نرم‌افزار خوب فارسی‌زبان‌ها را هم سزاوار زیبایی و سرعت است.",
-  primary: { label: "دریافت رزومه", href: "/resume.pdf", download: true },
+  // Reuse the shared résumé link so the label and target never drift apart.
+  primary: site.resume,
   secondary: { label: "مشاهده‌ی پروژه‌ها", href: "#projects" },
   terminalTitle: "درباره‌ی من",
   terminalLines: [

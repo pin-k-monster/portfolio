@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 export interface Logo { name: string; /** Optional mark; falls back to the name in a bold wordmark. */ node?: React.ReactNode }
 
-/** لوگوی مشتریان. A quiet row of customer marks that colour up on hover. */
+/** Customer logo row. A quiet row of customer marks that colour up on hover. */
 export function LogoCloud({ title = "به ما اعتماد کرده‌اند", logos, className }: { title?: string; logos: Logo[]; className?: string }) {
   return (
     <section className={cn("px-6 pt-12", className)}>

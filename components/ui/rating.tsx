@@ -15,7 +15,7 @@ export interface RatingProps {
   className?: string;
 }
 
-/** امتیاز. Stars fill from the right (inline-start); hover previews the value. */
+/** Star rating. Stars fill from the right (inline-start); hover previews the value. */
 export function Rating({ value, defaultValue = 0, onChange, max = 5, readOnly, showValue, size = "md", className }: RatingProps) {
   const [internal, setInternal] = React.useState(defaultValue);
   const [hover, setHover] = React.useState<number | null>(null);

@@ -1,33 +1,33 @@
-/** یک عددِ شاخص با شمارنده‌ی count-up. */
+/** One count-up number in the stats strip. A `value` of `0` hides the cell. */
 export interface MilestoneNumber {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** عدد پایه به صورت عدد (نه رشته)؛ برای counter. */
+  /** Target number for the count-up animation. */
   value: number;
-  /** واحد/پسوند بیرون از جعبه‌ی شمارنده که تکان نمی‌خورد؛ مثل "+" یا "K+". */
+  /** Suffix rendered outside the animating box, e.g. "+" or "K+". */
   unit?: string;
-  /** برچسب فارسی زیر عدد. */
+  /** What the number counts, e.g. "years of experience". */
   label: string;
-  /** توضیح کوچک اختیاری زیر برچسب. */
+  /** Optional clarifying line under the label. */
   hint?: string;
 }
 
-/** یک افتخار/نشان در ردیف دستاوردها. */
+/** One award or badge in the honours row. */
 export interface MilestoneBadge {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** متن فارسی افتخار. */
+  /** The badge text. */
   text: string;
 }
 
-/** کل محتوای دستاوردها. */
+/** Content of the stats / milestones section. */
 export interface MilestonesContent {
-  /** برچسب بالای تیتر. */
+  /** Small label above the heading. */
   eyebrow: string;
-  /** تیتر بخش. */
+  /** Section heading. */
   title: string;
-  /** ردیف اعداد با hairline جداکننده (کپی از چیدمان بلاک `stats`). */
+  /** The count-up cells. */
   numbers: MilestoneNumber[];
-  /** ردیف نشان‌های افتخار زیر اعداد. */
+  /** Honours and awards. */
   honors: MilestoneBadge[];
 }

@@ -1,31 +1,37 @@
 import type { CtaLink } from "../shared";
 
-/** یک خط پایانه‌ی ترمینال؛ دقیقا مطابق تایپ TerminalLine کامپوننت `terminal` رجیستری. */
+/**
+ * One line of the animated terminal in the hero.
+ *
+ * - `cmd`  typed like a shell command, always LTR monospace
+ * - `out`  plain stdout
+ * - `ok`   success line
+ * - `err`  error line
+ */
 export type HeroTerminalLine = {
-  /** "cmd" = خط فرمان (چپ‌چین)، "out" = خروجی ساده، "ok" = موفقیت سبز، "err" = خطای قرمز. */
   type: "cmd" | "out" | "ok" | "err";
-  /** متن خط؛ فرمان‌ها لاتین، خروجی‌ها فارسی. */
+  /** The line itself. Persian stays RTL, commands stay LTR. */
   text: string;
 };
 
-/** کل محتوای هیرو. */
+/** Content of the hero section. */
 export interface HeroContent {
-  /** برچسب بالای تیتر (Badge با variant brand). */
+  /** Small shimmering line above the heading. */
   badge: string;
-  /** نام برای قسمت گرادیانی تیتر (gradient-text). */
+  /** Your name, rendered inside the blurred heading. */
   name: string;
-  /** متن پیش از گردش نقش‌ها، مثل «توسعه‌دهنده‌ی» — واژه‌ی پایه در تیتر. */
+  /** Words between the name and the rotating role, e.g. "the developer of". */
   titlePrefix: string;
-  /** نقش‌های متغیری که word-rotate بینشان می‌چرخد. */
+  /** Roles cycled by the rotating word, e.g. ["full-stack", "frontend"]. */
   rotatingRoles: string[];
-  /** توضیح زیر تیتر (یک پاراگراف فارسی). */
+  /** Intro paragraph under the heading. */
   description: string;
-  /** دکمه‌ی اول: مسیر اصلی اقدام (مثلاً تماس). */
+  /** Primary action, usually the résumé download. */
   primary: CtaLink;
-  /** دکمه‌ی دوم: اقدام ثانویه (رزومه). */
+  /** Secondary action, usually a link to the projects section. */
   secondary: CtaLink;
-  /** عنوان پنجره‌ی ترمینال تزئینی زیر دکمه‌ها. */
+  /** Window chrome of the terminal mock. */
   terminalTitle: string;
-  /** خطوط ترمینال؛ پیش‌فرمت‌شده و آماده‌ی نمایش. */
+  /** Lines the terminal types out when it scrolls into view. */
   terminalLines: HeroTerminalLine[];
 }

@@ -17,7 +17,7 @@ export interface DialogProps {
 }
 
 /**
- * پنجره (مودال). Closes on Escape and overlay click, locks body scroll,
+ * Modal dialog. Closes on Escape and overlay click, locks body scroll,
  * moves focus inside on open and restores it on close.
  */
 export function Dialog({ open, onOpenChange, title, description, children, footer, role = "dialog", className }: DialogProps) {

@@ -5,7 +5,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
 /**
- * هاور آواتارها. The hovered avatar springs up and its neighbours follow with a
+ * Hover avatar group. The hovered avatar springs up and its neighbours follow with a
  * distance falloff; on leave the whole row bounces back with an overshoot.
  * The person's name floats above the active one. Works in either direction
  * because the falloff is measured by index, not by side.

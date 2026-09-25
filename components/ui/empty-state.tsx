@@ -9,7 +9,7 @@ export interface EmptyStateProps {
   className?: string;
 }
 
-/** حالت خالی. Say what's missing and offer the one action that fixes it. */
+/** Empty state. Say what's missing and offer the one action that fixes it. */
 export function EmptyState({ icon: Icon = Inbox, title, description, action, className }: EmptyStateProps) {
   return (
     <div className={cn("flex flex-col items-center gap-2 rounded-xl border border-dashed border-input p-8 text-center", className)}>

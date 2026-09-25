@@ -1,13 +1,13 @@
 import type { CtaLink } from "../shared";
 
-/** کل محتوای CTA پایانی. */
+/** Content of the closing call-to-action banner. */
 export interface CtaContent {
-  /** تیتر بزرگ. */
+  /** Heading. */
   title: string;
-  /** توضیح اختیاری. */
+  /** Supporting paragraph. Omit to hide it. */
   description?: string;
-  /** اقدام اصلی: دانلود رزومه یا ایمیل. */
+  /** The single action. Usually `site.resume`. */
   action: CtaLink;
-  /** یادداشت کوچک اعتماد زیر دکمه. */
+  /** Small print under the button, e.g. "PDF · updated 2026". */
   note?: string;
 }

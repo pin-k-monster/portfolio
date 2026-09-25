@@ -15,7 +15,7 @@ export interface CounterProps {
 }
 
 /**
- * شمارنده. Counts up when scrolled into view, eased, with Persian digits.
+ * Counter. Counts up when scrolled into view, eased, with Persian digits.
  * The final value is rendered invisibly to reserve the box width, the live
  * value is anchored to the units digit, and the unit sits outside the box —
  * so nothing shifts when the digit count changes (e.g. crossing ۱۰٬۰۰۰٬۰۰۰).

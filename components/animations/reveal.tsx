@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** ظهور هنگام اسکرول. Fades and rises when it enters the viewport; once only. */
+/** Scroll reveal. Fades and rises when it enters the viewport; once only. */
 export function Reveal({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [shown, setShown] = React.useState(false);

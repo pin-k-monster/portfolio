@@ -1,29 +1,32 @@
 import type { CtaLink, ImageAsset } from "../shared";
 
-/** یک واقعیت کوتاه شخصی/حرفه‌ای در نوار اطلاعات. */
+/** One key/value pair in the "facts" grid. */
 export interface AboutFact {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** برچسب فارسی: مثل «سکونت». */
+  /** Short label, e.g. "Location". */
   field: string;
-  /** مقدار فارسی: مثل «تهران، ایران». */
+  /** The value, e.g. "Tehran, Iran". */
   value: string;
 }
 
-/** کل محتوای درباره‌ی من. */
+/** Content of the "About" section. */
 export interface AboutContent {
-  /** پرتره‌ی شما در کارت معرفی. */
+  /** Portrait shown in the sticky card. Falls back to the monogram when the file is missing. */
   avatar: ImageAsset;
-  /** نام کامل؛ بالای کارت. */
+  /** Full name. Usually `site.name`. */
   name: string;
-  /** برچسب شغلی/تیتر کوتاه. */
+  /** One-line job title under the name. */
   headline: string;
-  /** بدنه‌ی داستان؛ هر آیتم یک پاراگراف. بخشی از متن برای highlight-text انتخاب می‌شود. */
+  /**
+   * Bio paragraphs. A paragraph that contains `focusKeyword` gets a marker-stroke
+   * highlight, so the phrase must appear verbatim in the text.
+   */
   bio: string[];
-  /** عبارتی از bio که با highlight-text زیرش خط می‌کشد (یک جمله/عبارت). */
+  /** The phrase highlighted across the bio. Keep it short. */
   focusKeyword: string;
-  /** واقعیت‌های کنار معرفی. */
+  /** The facts grid. */
   facts: AboutFact[];
-  /** لینک رزومه؛ از config. */
+  /** Résumé button. Usually `site.resume`. */
   resume: CtaLink;
 }

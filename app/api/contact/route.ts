@@ -1,23 +1,50 @@
 import type { NextRequest } from "next/server";
 import nodemailer from "nodemailer";
-import { isIranMobile } from "@/lib/persian";
 import { site } from "@/lib/site/config";
+import {
+  CONTACT_MESSAGES,
+  normalizeContactValues,
+  validateContact,
+  type ContactErrorCode,
+} from "@/lib/site/contact/validation";
 
 export const runtime = "nodejs";
 
-interface ContactPayload {
-  name?: unknown;
-  email?: unknown;
-  phone?: unknown;
-  message?: unknown;
+/**
+ * In-memory rate limit, per IP. Enough to stop a casual spam script on a single
+ * server; swap for Redis or your platform's rate limiter when running multiple
+ * instances, because each instance keeps its own counters.
+ */
+const WINDOW_MS = 60_000;
+const MAX_PER_WINDOW = 3;
+const hits = new Map<string, { count: number; resetAt: number }>();
+
+function rateLimit(key: string): { allowed: boolean; retryAfter: number } {
+  const now = Date.now();
+  const entry = hits.get(key);
+
+  if (!entry || now > entry.resetAt) {
+    hits.set(key, { count: 1, resetAt: now + WINDOW_MS });
+    // Opportunistic cleanup so the map cannot grow without bound.
+    if (hits.size > 1000) {
+      for (const [k, v] of hits) if (now > v.resetAt) hits.delete(k);
+    }
+    return { allowed: true, retryAfter: 0 };
+  }
+
+  entry.count += 1;
+  if (entry.count > MAX_PER_WINDOW) {
+    return { allowed: false, retryAfter: Math.ceil((entry.resetAt - now) / 1000) };
+  }
+  return { allowed: true, retryAfter: 0 };
 }
 
-function isEmail(value: unknown): value is string {
-  return typeof value === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
-
-function isText(value: unknown, min = 1): value is string {
-  return typeof value === "string" && value.trim().length >= min;
+function clientKey(request: NextRequest): string {
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
 }
 
 function escapeHtml(value: string): string {
@@ -29,13 +56,8 @@ function escapeHtml(value: string): string {
     .replace(/'/g, "&#039;");
 }
 
-/** چک اولیه‌ی فیلدها؛ پیام خطا همان پیام‌های سمت کلاینت باشد برای یکدستی. */
-function validate(body: Partial<ContactPayload>): string | null {
-  if (!isText(body.name)) return "نام خود را بنویسید";
-  if (!isEmail(body.email)) return "ایمیل معتبر نیست";
-  if (typeof body.phone === "string" && body.phone && !isIranMobile(body.phone)) return "شماره‌ی موبایل معتبر نیست";
-  if (!isText(body.message, 10)) return "پیام باید حداقل ۱۰ کاراکتر باشد";
-  return null;
+function fail(code: ContactErrorCode, status: number, headers?: HeadersInit) {
+  return Response.json({ ok: false, code, error: CONTACT_MESSAGES[code] }, { status, headers });
 }
 
 function buildTransporter() {
@@ -53,41 +75,38 @@ function buildTransporter() {
 }
 
 export async function POST(request: NextRequest) {
-  let body: ContactPayload;
-  try {
-    body = (await request.json()) as ContactPayload;
-  } catch {
-    return Response.json({ ok: false, error: "بدنه‌ی درخواست معتبر نیست" }, { status: 400 });
+  const limit = rateLimit(clientKey(request));
+  if (!limit.allowed) {
+    return fail("rate-limited", 429, { "Retry-After": String(limit.retryAfter) });
   }
 
-  const invalid = validate(body);
-  if (invalid) {
-    return Response.json({ ok: false, error: invalid }, { status: 400 });
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return fail("invalid-body", 400);
   }
+  if (typeof body !== "object" || body === null || Array.isArray(body)) {
+    return fail("invalid-body", 400);
+  }
+
+  // Same module the browser form validates against.
+  const code = validateContact(body as Record<string, unknown>);
+  if (code) return fail(code, 400);
 
   const transporter = buildTransporter();
-  if (!transporter) {
-    return Response.json(
-      { ok: false, error: "سرور ایمیل تنظیم نشده است؛ با پیکربندی SMTP تماس بگیرید." },
-      { status: 500 },
-    );
-  }
+  if (!transporter) return fail("smtp-unconfigured", 500);
 
-  const name = String(body.name).trim();
-  const email = String(body.email).trim();
-  const phone = String(body.phone ?? "").trim();
-  const message = String(body.message).trim();
-  const safe = { name: escapeHtml(name), email: escapeHtml(email), phone: escapeHtml(phone), message: escapeHtml(message) };
+  const { name, email, phone, message } = normalizeContactValues(body as Record<string, never>);
+  const safe = {
+    name: escapeHtml(name),
+    email: escapeHtml(email),
+    phone: escapeHtml(phone),
+    message: escapeHtml(message),
+  };
 
   const subject = `پیام جدید از ${name}`;
-  const text = [
-    `نام: ${name}`,
-    `ایمیل: ${email}`,
-    `موبایل: ${phone || "—"}`,
-    "",
-    `پیام:`,
-    message,
-  ].join("\n");
+  const text = [`نام: ${name}`, `ایمیل: ${email}`, `موبایل: ${phone || "—"}`, "", "پیام:", message].join("\n");
 
   const html = `<!doctype html><html dir="rtl" lang="fa"><body style="margin:0;padding:24px;font-family:Tahoma,Arial,sans-serif;background:#f4f4f5;color:#18181b">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
@@ -122,9 +141,6 @@ export async function POST(request: NextRequest) {
     return Response.json({ ok: true });
   } catch (error) {
     console.error("contact email failed:", error);
-    return Response.json(
-      { ok: false, error: "ارسال ایمیل ناموفق بود؛ کمی بعد دوباره تلاش کنید یا مستقیم ایمیل بزنید." },
-      { status: 500 },
-    );
+    return fail("send-failed", 500);
   }
 }

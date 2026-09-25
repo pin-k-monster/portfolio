@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** پیشرفت خواندن. A thin bar that fills from the right as the page (or the scrollable box in `targetRef`) scrolls. Fixed to the top by default; pass `sticky top-0` when it lives inside a scroll box. */
+/** Reading progress. A thin bar that fills from the right as the page (or the scrollable box in `targetRef`) scrolls. Fixed to the top by default; pass `sticky top-0` when it lives inside a scroll box. */
 export function ScrollProgress({ targetRef, className }: { targetRef?: React.RefObject<HTMLElement | null>; className?: string }) {
   const [p, setP] = React.useState(0);
   React.useEffect(() => {

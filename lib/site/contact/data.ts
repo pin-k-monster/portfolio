@@ -1,6 +1,11 @@
 import type { ContactContent } from "./type";
 import { site } from "../config";
 
+/**
+ * Contact section content. Field labels and placeholders live here; the
+ * validation rules and error messages live in `./validation` so the browser
+ * form and the API route stay in sync.
+ */
 export const contact: ContactContent = {
   eyebrow: "تماس",
   title: "بیایید پروژه‌ای بسازیم",
@@ -44,8 +49,9 @@ export const contact: ContactContent = {
     pendingLabel: "در حال ارسال…",
     successTitle: "پیام شما رسید",
     successDescription: "ممنون! به‌زودی در ایمیل‌تان پاسخ می‌دهم.",
+    anotherLabel: "ارسال پیام دیگر",
     errorTitle: "خطا در ارسال",
-    errorDescription: "لطفاً دوباره تلاش کنید؛ یا مستقیم به ایمیل ایمیل بزنید.",
+    errorDescription: "لطفاً دوباره تلاش کنید؛ یا مستقیم ایمیل بزنید.",
   },
   socials: site.socials,
 } satisfies ContactContent;

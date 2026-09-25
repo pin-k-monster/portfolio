@@ -1,16 +1,18 @@
-import { formatJalali } from "../../../lib/jalali";
+import { formatJalali } from "@/lib/jalali";
 import type { ExperienceContent, ExperiencePeriod } from "./type";
 
-/** سازنده‌ی برچسب بازه — عدد فارسی و شمسی، آماده‌ی نمایش. */
-const labelOf = (start: Date, end: Date | null): string =>
-  end === null
-    ? `از ${formatJalali(start)} تاکنون`
-    : `از ${formatJalali(start)} تا ${formatJalali(end)}`;
-
+/**
+ * Builds the human-readable Persian date range, e.g.
+ * "از ۱۴۰۲/۰۴ تاکنون". Keep the `Date` values in the data as the source of
+ * truth so ordering and the label never disagree.
+ */
 const period = (start: Date, end: Date | null): ExperiencePeriod => ({
   start,
   end,
-  label: labelOf(start, end),
+  label:
+    end === null
+      ? `از ${formatJalali(start)} تاکنون`
+      : `از ${formatJalali(start)} تا ${formatJalali(end)}`,
 });
 
 export const experience: ExperienceContent = {

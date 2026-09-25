@@ -1,69 +1,3 @@
-/*
- * ============================================================
- *  بخش نوبار (Navbar)
- *  این فایل فعلاً فقط برنامه‌ریزی است؛ هنوز هیچ کدی ندارد.
- * ============================================================
- *
- * ۱. Purpose (هدف)
- * ‌- پیام: ناوبری مطمئن و حرفه‌ای؛ بازدیدکننده در هر لحظه بداند کجاست و چه کاری می‌تواند بکند.
- * ‌- اقدام اصلی: کلیک روی «دانلود رزومه» + اسکرول نرم به بخش‌ها.
- * ‌- نوار بالا چسبان (sticky) با پس‌زمینه‌ی blur تا هنگام اسکرول محتوا از زیرش ناخوانا نشود.
- *
- * ۲. VibeFarsi components (کامپوننت‌ها) — همه تأییدشده در رجیستری
- * ‌- button (ui/button): CTA رزومه، variant="brand" size="md". add: button
- * ‌- sheet (ui/sheet): منوی موبایل. side="start" — در RTL «start» یعنی سمت راست،
- *    دقیقا زیر لوگو که راست‌ترین عنصر است. روی باز/بسته با state خودش (SheetProps: open, onOpenChange, title).
- *    add: sheet
- * ‌- scroll-progress (animations/scroll-progress): نوار باریک بالای صفحه که از راست پر می‌شود
- *    (origin-right در RTL). بدون prop؛ در بالای همین کامپوننت مطلق/fixed رندر شود. add: scroll-progress
- * ‌- لوگو و لینک‌ها متن ساده با آیکون‌های lucide (بدون کامپوننت اختصاصی؛ REGISTRY MATCH موجود است).
- *
- * ۳. Layout (چیدمان)
- * ‌- ترتیب از بالا به پایین: [ScrollProgress] سپس <header> چسبان.
- * ‌- دسکتاپ (lg به بالا): لوگو (monogram + نام) در راست؛ منو وسط/چپ و دکمه‌ی CTA چپ‌ترین عنصر.
- * ‌- موبایل (زیر lg): لوگو راست، دکمه‌ی همبرگر (آیکون Menu lucide) چپ؛ باز شدن sheet از سمت راست.
- * ‌- sheet را پر از آیتم‌های منو + CTA کرد؛ پایین آن separator + شبکه‌های اجتماعی.
- * ‌- ارتفاع ۶۴px، padding افقی ۱۶/۲۴/۴۸ (sm/lg/xl)، container max-w-7xl.
- * ‌- یادآوری RTL: اولین آیتم منو سمت راست است.
- *
- * ۴. Data (داده)
- * ‌- Data file: @/lib/site/navbar/data .  Type: NavbarContent (از ./type).
- * ‌- items → لینک‌های منو (id برای فعال‌سازی، label متن، href لنگر).
- * ‌- cta → دکمه‌ی رزومه (config.resume).
- * ‌- mobileMenuTitle → عنوان sheet.
- * ‌- نام/لوگو از @/lib/site/config → site.name / site.monogram.
- *
- * ۵. Interaction and animation (تعامل و انیمیشن)
- * ‌- scroll-progress: پرشدن از راست هنگام اسکرول (نه Reveal؛ مربوط به کل صفحه).
- * ‌- روی دسکتاپ زیر هر لینک، نوار زیرخط فعال بخشِ در دید (با IntersectionObserver روی sections،
- *    نه کتابخانه‌ی اضافه). انیمیشن با transition رنگ/پس‌زمینه ۲۰۰ms.
- * ‌- hover لینک: رنگ foreground/40→foreground.
- * ‌- sheet: انیمیشن ورود/خروج خود کامپوننت (slide + پس‌زمینه‌ی اوورلی fading).
- * ‌- همه‌ی حرکت‌ها کوتاه؛ برای prefers-reduced-motion فقط تغییر رنگ مجاز است.
- *
- * ۶. States (حالت‌ها)
- * ‌- حالت چسبان (scrolled): چون زمینه graphite تیره است، بلافاصله backdrop-blur + bg-background/70.
- * ‌- حالت فعال (active section): لینک برجسته با آریا-current یا دکور border.
- * ‌- LCP/light/dark: سایت تک‌تمِ graphite (dark) است؛ بدون سوئیچ تم. فقط tokens.
- * ‌- اگر JS غیرفعال بود: لینک‌های منو و CTA باید بدون JS هم کار کنند (معمولی <a>).
- *
- * ۷. Accessibility (دسترس‌پذیری)
- * ‌- <header role="banner"> (تک‌بار در صفحه)؛ داخل آن <nav aria-label="پیمایش اصلی"> و <ol>/<li>.
- * ‌- دکمه‌ی همبرگر aria-label="باز کردن منو" و aria-expanded.
- * ‌- sheet رجیستری: aria-modal، بستن با Escape، focus به داخل و بازگردانی focus.
- * ‌- ترتیب focus: اول لوگو، بعد منو، بعد CTA (RTL: راست به چپ).
- * ‌- contrast: متن روی bg-background با foreground (نسبت بالا در graphite).
- *
- * ۸. Implementation notes (یادداشت پیاده‌سازی)
- * ‌- مونتاژ: این بخش اولین‌بار در app/page.tsx و زیر ScrollProgress رندر می‌شود.
- * ‌- لینک‌های input اسکرول نرم: در layout روی <html> باید data-scroll-behavior="smooth" باشد
- *    (Next 16 فقط با همین صفت اسکرول صاف را فعال می‌کند) و برای بخش‌های چسبان یک rule
- *    scroll-margin-top ~ 88px بگذارید تا تیتر زیر نوبار «گیر» نکند.
- * ‌- آیکون‌ها از lucide-react (وابستگی‌ای که add نصب می‌کند). آیکون‌های جهت‌دار (Menu/X/ArrowLeft) در RTL خودکار برگردان نمی‌شوند؛ نگاه کنید.
- * ‌- فایل app/_components/header.tsx خالی از قبل هست و استفاده نمی‌شود؛ می‌توانید حذفش کنید.
- * ‌- این کامپوننت را Client کنید فقط برای sheet/scroll-progress (آنها خود "use client" نیستند همه‌جا؛ سرریزشان را چک کنید).
- */
-
 "use client";
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
@@ -71,7 +5,6 @@ import { Menu, DownloadCloud } from "lucide-react";
 import { ShineButton } from "@/components/animations/shine-button";
 import Logo from "@/components/common/logo";
 import { Sheet } from "@/components/ui/sheet";
-import { site } from "@/lib/site/config";
 import { navbar } from "@/lib/site/navbar/data";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -79,7 +12,10 @@ import { Button } from "@/components/ui/button";
 function MobileSheetContent({ setOpen, activeId }: { setOpen: Dispatch<SetStateAction<boolean>>; activeId: string }) {
     return (
         <div className="flex h-full flex-col">
-            <nav aria-label="پیمایش موبایل">
+            <h2 className="mb-3 px-3 text-sm font-semibold text-muted-foreground">
+                {navbar.mobileMenuTitle}
+            </h2>
+            <nav aria-label={navbar.mobileMenuTitle}>
                 <ul className="flex flex-col gap-1">
                     {navbar.items.map((item) => (
                         <li key={item.id}>
@@ -95,12 +31,11 @@ function MobileSheetContent({ setOpen, activeId }: { setOpen: Dispatch<SetStateA
                     ))}
                 </ul>
             </nav>
-            <div className="justify-end flex flex-1 flex-col">
-                <Link href={site.resume.href} onClick={() => setOpen(false)}
-                    download={site.resume.download}>
+            <div className="flex flex-1 flex-col justify-end">
+                <Link href={navbar.cta.href} onClick={() => setOpen(false)} download={navbar.cta.download}>
                     <ShineButton className="w-full cursor-pointer" size="md">
-                        {site.resume.label}
-                        <DownloadCloud />
+                        {navbar.cta.label}
+                        <DownloadCloud aria-hidden />
                     </ShineButton>
                 </Link>
             </div>
@@ -166,10 +101,10 @@ export default function Navbar() {
                         </ul>
                     </div>
                     <div className="flex justify-end">
-                        <Link href={site.resume.href} download={site.resume.download}>
+                        <Link href={navbar.cta.href} download={navbar.cta.download}>
                             <ShineButton size="sm">
-                                {site.resume.label}
-                                <DownloadCloud />
+                                {navbar.cta.label}
+                                <DownloadCloud aria-hidden />
                             </ShineButton>
                         </Link>
                     </div>
@@ -183,13 +118,13 @@ export default function Navbar() {
                         aria-label="باز کردن منو"
                         aria-expanded={open}
                     >
-                        <Menu className="size-5" />
+                        <Menu className="size-5" aria-hidden />
                     </Button>
                     <Logo />
                 </div>
             </header>
 
-            <Sheet open={open} onOpenChange={setOpen} side="start" title="منو">
+            <Sheet open={open} onOpenChange={setOpen} side="start" title={navbar.mobileMenuTitle}>
                 <MobileSheetContent setOpen={setOpen} activeId={activeId} />
             </Sheet>
         </>

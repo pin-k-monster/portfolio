@@ -1,7 +1,7 @@
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-/** دکمه‌ی درخشان. A periodic glint for the one primary action on a page. */
+/** Shine button. A periodic glint for the one primary action on a page. */
 export function ShineButton({ className, children, ...props }: ButtonProps) {
   return (
     <Button className={cn("relative overflow-hidden", className)} {...props}>

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** ظهور ماسکی. Each line wipes in from the right behind a mask, one after another. Needs the `wipe-in` keyframes. */
+/** Masked text reveal. Each line wipes in from the right behind a mask, one after another. Needs the `wipe-in` keyframes. */
 export function TextReveal({ lines, stagger = 140, duration = 900, className }: { lines: string[]; stagger?: number; duration?: number; className?: string }) {
   return (
     <span className={cn("inline-block", className)} aria-label={lines.join(" ")}>

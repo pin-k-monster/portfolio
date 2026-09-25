@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** کارت نورانی. A soft radial highlight follows the pointer across the card and lights up its border. */
+/** Spotlight card. A soft radial highlight follows the pointer across the card and lights up its border. */
 export function SpotlightCard({ children, className }: { children: React.ReactNode; className?: string }) {
   const [p, setP] = React.useState({ x: -200, y: -200 });
   const glow = `radial-gradient(180px circle at ${p.x}px ${p.y}px, oklch(from var(--foreground) l c h / 18%), transparent 70%)`;

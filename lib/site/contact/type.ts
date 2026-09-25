@@ -1,58 +1,60 @@
 import type { SocialLink } from "../shared";
 
-/** نوع فیلد ورودی. */
+/** Which control renders a contact field. `tel` renders the Iranian phone input. */
 export type ContactFieldType = "text" | "email" | "tel" | "textarea";
 
-/** توصیف یک فیلد فرم. */
+/** A single field of the contact form. */
 export interface ContactField {
-  /** نام فیلد در state فرم (لاتین). */
+  /** Form key. Must match a key of the payload validated in `lib/site/contact/validation.ts`. */
   name: string;
-  /** برچسب فارسی. */
+  /** Visible label. */
   label: string;
-  /** placeholder فارسی. */
+  /** Placeholder text. */
   placeholder?: string;
-  /** راهنمای کوچک زیر فیلد. */
+  /** Helper text shown under the input when the field has no error. */
   hint?: string;
-  /** الزامی بودن (برای ساخت rule های required). */
+  /** Marks the field required. The matching validation rule is enforced too. */
   required?: boolean;
-  /** نوع فیلد؛ "tel" یعنی phone-input رجیستری و بقیه input ساده. */
+  /** Control to render. */
   type: ContactFieldType;
-  /** حداکثر طول؛ تعداد کاراکتر برای textarea (در بقیه null). */
+  /** Character cap, forwarded to the textarea. */
   maxLength?: number;
 }
 
-/** متن‌های فرم. */
+/** User-facing strings for every state of the contact form. */
 export interface ContactFormText {
-  /** برچسب فیلدها. */
+  /** The fields, in render order. */
   fields: ContactField[];
-  /** متن دکمه‌ی ارسال. */
+  /** Submit button label. */
   submitLabel: string;
-  /** متن دکمه هنگام «در حال ارسال». */
+  /** Submit button label while the request is in flight. */
   pendingLabel: string;
-  /** عنوان اعلان موفقیت (toast). */
+  /** Toast + success panel title. */
   successTitle: string;
-  /** متن اعلان موفقیت (toast). */
+  /** Toast + success panel body. */
   successDescription: string;
-  /** عنوان اعلان خطا. */
+  /** Label of the button that resets the form after a successful send. */
+  anotherLabel: string;
+  /** Toast title on failure. */
   errorTitle: string;
-  /** متن اعلان خطا. */
+  /** Toast body used when the server sends no message. */
   errorDescription: string;
 }
 
-/** کل محتوای تماس. */
+/** Content of the "Contact" section. */
 export interface ContactContent {
-  /** برچسب بالای تیتر. */
+  /** Small label above the heading. */
   eyebrow: string;
-  /** تیتر بخش. */
+  /** Section heading. */
   title: string;
-  /** توضیح در ستون کنار فرم. */
+  /** Intro paragraph under the heading. */
   description: string;
-  /** ایمیل مستقیم (از config). */
+  /** Address of the direct "e-mail" card. Usually `site.contact.email`. */
   email: string;
-  /** یادداشت زمان پاسخ. */
+  /** Note shown in the info alert, e.g. response time. */
   responseNote: string;
-  /** متن فرم (فیلدها + دکمه‌ها + پیام‌ها). */
+  /** Form strings and field definitions. */
   form: ContactFormText;
-  /** شبکه‌های اجتماعی (از config). */
+  /** Social links. Usually `site.socials`. */
   socials: SocialLink[];
 }

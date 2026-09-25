@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** چشمک‌زن. A cell grid where each cell pulses on its own schedule. Needs the `flicker` keyframes. */
+/** Flicker. A cell grid where each cell pulses on its own schedule. Needs the `flicker` keyframes. */
 export function FlickerBackground({ cols = 12, rows = 6, className }: { cols?: number; rows?: number; className?: string }) {
   return (
     <div

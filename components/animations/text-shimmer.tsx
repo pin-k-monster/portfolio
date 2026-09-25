@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * متن درخشان. A highlight sweeps across the text — the standard "thinking"
+ * Shimmering text. A highlight sweeps across the text — the standard "thinking"
  * indicator. Needs the `shimmer` keyframes (see the CSS tab).
  */
 export function TextShimmer({ children, className, duration = 3 }: { children: React.ReactNode; className?: string; duration?: number }) {

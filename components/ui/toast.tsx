@@ -67,7 +67,7 @@ export function useToast() {
 
 const icons = { default: Info, success: Check, error: AlertCircle };
 
-/** اعلان. The card itself; rendered by the provider, exported for previews. */
+/** Toast. The card itself; rendered by the provider, exported for previews. */
 export function ToastCard({ toast, onClose, className }: { toast: Omit<Toast, "id">; onClose?: () => void; className?: string }) {
   const Icon = icons[toast.variant ?? "default"];
   return (

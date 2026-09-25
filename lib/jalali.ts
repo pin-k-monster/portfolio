@@ -1,5 +1,5 @@
 /**
- * Jalali (شمسی) calendar conversion — Borkowski algorithm as used by jalaali-js.
+ * Jalali (Shamsi) calendar conversion — Borkowski algorithm as used by jalaali-js.
  * Valid for Jalali years 1 … 3177. Dependency-free.
  */
 
@@ -96,7 +96,7 @@ export const JALALI_MONTHS = ["فروردین", "اردیبهشت", "خرداد"
 export const JALALI_WEEKDAYS = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
 export const JALALI_WEEKDAYS_SHORT = ["ش", "ی", "د", "س", "چ", "پ", "ج"];
 
-/** 0 = شنبه … 6 = جمعه */
+/** Weekday index, 0 = Saturday (شنبه) through 6 = Friday (جمعه). */
 export function jalaliWeekday(date: Date) {
   return (date.getDay() + 1) % 7;
 }
@@ -104,7 +104,7 @@ export function jalaliWeekday(date: Date) {
 const FA = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
 const faDigits = (n: number | string) => String(n).replace(/\d/g, (d) => FA[Number(d)]);
 
-/** «چهارشنبه، ۲۵ شهریور ۱۴۰۵» */
+/** Long form with the weekday, e.g. «چهارشنبه، ۲۵ شهریور ۱۴۰۵». */
 export function formatJalali(date: Date, opts: { weekday?: boolean; year?: boolean } = {}) {
   const { jy, jm, jd } = toJalali(date);
   const parts = [`${faDigits(jd)} ${JALALI_MONTHS[jm - 1]}`];
@@ -112,7 +112,7 @@ export function formatJalali(date: Date, opts: { weekday?: boolean; year?: boole
   return (opts.weekday ? `${JALALI_WEEKDAYS[jalaliWeekday(date)]}، ` : "") + parts.join(" ");
 }
 
-/** Numeric form «۱۴۰۵/۰۶/۲۵» */
+/** Numeric form, e.g. «۱۴۰۵/۰۶/۲۵». */
 export function formatJalaliNumeric(date: Date) {
   const { jy, jm, jd } = toJalali(date);
   return faDigits(`${jy}/${String(jm).padStart(2, "0")}/${String(jd).padStart(2, "0")}`);

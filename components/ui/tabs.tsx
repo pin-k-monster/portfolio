@@ -20,7 +20,7 @@ export interface TabsProps {
   children: React.ReactNode;
 }
 
-/** تب‌ها. In RTL the first tab is on the right; ArrowLeft moves to the next tab. */
+/** Tabs. In RTL the first tab is on the right; ArrowLeft moves to the next tab. */
 export function Tabs({ value, defaultValue, onValueChange, variant = "segmented", className, children }: TabsProps) {
   const [internal, setInternal] = React.useState(defaultValue);
   const id = React.useId();
@@ -46,32 +46,9 @@ export function TabsList({
   "aria-label"?: string;
 }) {
   const ctx = React.useContext(TabsCtx)!;
-  const list = React.useRef<HTMLDivElement>(null);
-  const [pill, setPill] = React.useState<{ x: number; w: number } | null>(null);
-
-  const measure = React.useCallback(() => {
-    if (ctx.variant !== "segmented") {
-      setPill(null);
-      return;
-    }
-    const root = list.current;
-    const el = root?.querySelector<HTMLElement>('[aria-selected="true"]');
-    if (!root || !el) return setPill(null);
-    setPill({ x: el.offsetLeft, w: el.offsetWidth });
-  }, [ctx.variant, ctx.value]);
-
-  React.useLayoutEffect(measure, [measure, children]);
-  React.useEffect(() => {
-    const root = list.current;
-    if (!root || typeof ResizeObserver === "undefined") return;
-    const ro = new ResizeObserver(measure);
-    ro.observe(root);
-    return () => ro.disconnect();
-  }, [measure]);
 
   return (
     <div
-      ref={list}
       role="tablist"
       aria-label={label}
       onKeyDown={(e) => {
@@ -85,20 +62,12 @@ export function TabsList({
         next.click();
       }}
       className={cn(
-        "relative isolate",
         ctx.variant === "segmented"
           ? "inline-flex rounded-lg border border-border bg-muted p-0.5"
           : "flex gap-1 border-b border-border",
         className,
       )}
     >
-      {ctx.variant === "segmented" && pill ? (
-        <span
-          aria-hidden
-          className="absolute inset-y-0.5 -z-10 rounded-md bg-background shadow-sm ring-1 ring-border transition-[transform,width] duration-200 ease-out"
-          style={{ width: pill.w, left: 0, transform: `translateX(${pill.x}px)` }}
-        />
-      ) : null}
       {children}
     </div>
   );
@@ -129,7 +98,9 @@ export function TabsTrigger({
         ctx.variant === "segmented"
           ? cn(
               "rounded-md px-3 py-1.5",
-              active ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground",
+              active
+                ? "bg-background font-semibold text-foreground shadow-sm ring-1 ring-border"
+                : "text-muted-foreground hover:text-foreground",
             )
           : cn(
               "-mb-px border-b-2 px-3 py-2",

@@ -1,40 +1,50 @@
-import { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-/** سطح مهارت؛ فقط برچسب نمایشی است، نه درصد. */
-export type Proficiency = "مقدماتی" | "مسلط" | "آشنا";
+/**
+ * How confident you are with a technology. Only used to pick a badge style —
+ * no percentages, no progress bars.
+ *
+ * - `مسلط`      expert
+ * - `مقدماتی`   intermediate
+ * - `آشنا`      familiar
+ */
+export type Proficiency = "مسلط" | "مقدماتی" | "آشنا";
 
-/** یک مهارت/فناوری. */
+/** One technology inside a skill group. */
 export interface Skill {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** نام نمایشی؛ می‌تواند لاتین باشد مثل "TypeScript". */
+  /** Display name, e.g. "TypeScript". Rendered LTR. */
   name: string;
-  /** سطح اختیاری؛ اگر نباشد مهارت به‌صورت خنثی نمایش داده می‌شود. */
+  /** Optional level. Omit it and the badge disappears, leaving just the name. */
   proficiency?: Proficiency;
-  /** آیکون */
-  icon: string;
+  /**
+   * Path to the icon inside `/public`, e.g. `/icons/react.svg`.
+   * Optional: omit it to render the name without an icon.
+   */
+  icon?: string;
 }
 
-/** یک دسته‌ی مهارتی؛ در یک کارت جدا نمایش داده می‌شود. */
+/** One card of the skills grid. */
 export interface SkillGroup {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** آیکون */
+  /** Icon shown next to the group title. Any lucide icon. */
   icon: LucideIcon;
-  /** عنوان فارسی دسته. */
+  /** Group title, e.g. "Frontend". */
   title: string;
-  /** مهارت‌های درون دسته. */
+  /** The technologies in this group. */
   skills: Skill[];
 }
 
-/** کل محتوای مهارت‌ها. */
+/** Content of the skills section. */
 export interface SkillsContent {
-  /** برچسب بالای تیتر بخش. */
+  /** Small label above the heading. */
   eyebrow: string;
-  /** تیتر بخش. */
+  /** Section heading. */
   title: string;
-  /** نوار متحرک بالا: نام فناوری‌ها به‌صورت تکراری برای marquee. */
+  /** Technology names shown in the scrolling marquee. */
   marquee: string[];
-  /** دسته‌های مهارتی. */
+  /** The skill cards, in render order. */
   groups: SkillGroup[];
 }

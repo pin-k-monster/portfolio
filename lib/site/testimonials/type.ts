@@ -1,57 +1,53 @@
-/**
- * تایپ‌های بخش نظرات مشتریان (این فایل کد واقعی است).
- */
-
-/** یک نظر مشتری/کارفرما. */
+/** One testimonial, used by the card stack, the avatar row and the grid. */
 export interface Testimonial {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** نام کامل. */
+  /** The person's name. */
   name: string;
-  /** سمت. */
+  /** Their job title. */
   role: string;
-  /** شرکت/سازمان. */
+  /** Their company. */
   company?: string;
-  /** برچسب پروژه‌ای که نظر به آن مربوط است. */
+  /** Short project name shown as a badge. */
   project?: string;
-  /** متن نظر؛ با گیومه در UI نمایش داده می‌شود. */
+  /** The quote. */
   quote: string;
-  /** امتیاز از ۵. */
+  /** Star rating, 1-5. Defaults to 5. */
   rating?: number;
 }
 
-/** یک آمار کوچک در کارت خلاصه. */
+/** One cell of the "at a glance" grid in the summary card. */
 export interface TestimonialStat {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** مقدار نمایشی با اعداد فارسی از قبل. */
+  /** The number, pre-formatted (Persian digits included). */
   value: string;
-  /** برچسب فارسی زیر مقدار. */
+  /** What the number means. */
   label: string;
 }
 
-/** کل محتوای بخش نظرات مشتریان. */
+/** Content of the testimonials section. */
 export interface TestimonialsContent {
-  /** برچسب بالای تیتر بخش. */
+  /** Small label above the heading. */
   eyebrow: string;
-  /** تیتر بخش. */
+  /** Section heading. */
   title: string;
-  /** توضیح کوتاه زیر تیتر. */
+  /** Intro paragraph. */
   description: string;
-  /** میانگین امتیاز («۴٫۹»). */
+  /** Big average score, pre-formatted. */
   average: string;
-  /** برچسب کنار میانگین. */
+  /** Label above the average score. */
   averageLabel: string;
-  /** برچسب زیر ردیف ستاره‌ها. */
+  /** Small note next to the star rating. */
   ratingNote: string;
-  /** آمارهای کارت خلاصه. */
+  /** The "at a glance" cells. */
   stats: TestimonialStat[];
-  /** برچسب زیر آواتارهای کارت خلاصه. */
+  /** Label above the avatar row. */
   avatarsLabel: string;
-  /** نظرها؛ اولین چهار مورد در پشته‌ی کارت هم نمایش داده می‌شوند. */
+  /** The testimonials themselves. */
   items: Testimonial[];
-  /** عنوان ردیف لوگوی مشتریان. */
+  /** Heading of the client logo row. */
   clientsTitle: string;
-  /** نام مشتریان/شرکت‌ها برای ردیف لوگو. */
+  /** Client names for the logo row. */
   clients: { id: string; name: string }[];
 }

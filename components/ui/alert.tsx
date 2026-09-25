@@ -16,7 +16,7 @@ export interface AlertProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   icon?: React.ComponentType<{ className?: string }>;
 }
 
-/** هشدار درون‌صفحه‌ای. Icon at the inline-start; use `role="alert"` for errors that need announcing. */
+/** Inline alert. Icon at the inline-start; use `role="alert"` for errors that need announcing. */
 export function Alert({ variant = "info", title, icon, className, children, ...props }: AlertProps) {
   const s = styles[variant];
   const Icon = icon ?? s.icon;

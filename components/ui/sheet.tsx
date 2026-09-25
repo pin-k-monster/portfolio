@@ -23,7 +23,7 @@ function panelAnimation(side: NonNullable<SheetProps["side"]>) {
   return `${rtl ? "sheet-from-left" : "sheet-from-right"} ${SLIDE}`;
 }
 
-/** کشو. A side panel for filters, carts and mobile navigation. */
+/** Drawer. A side panel for filters, carts and mobile navigation. */
 export function Sheet({ open, onOpenChange, title, side = "start", children, className }: SheetProps) {
   const titleId = React.useId();
   React.useEffect(() => {

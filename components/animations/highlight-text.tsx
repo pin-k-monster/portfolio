@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** هایلایت متن. A marker stroke sweeps under the phrase from the right once it scrolls into view. */
+/** Highlighted text. A marker stroke sweeps under the phrase from the right once it scrolls into view. */
 export function HighlightText({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = React.useRef<HTMLSpanElement>(null);
   const [on, setOn] = React.useState(false);

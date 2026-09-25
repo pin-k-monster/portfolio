@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** ظهور تار. Each word fades in from a blur, right to left. Needs the `blur-in` keyframes. */
+/** Blur-in text. Each word fades in from a blur, right to left. Needs the `blur-in` keyframes. */
 export function BlurText({ text, delay = 120, className }: { text: string; delay?: number; className?: string }) {
   return (
     <span className={cn("inline", className)} aria-label={text}>

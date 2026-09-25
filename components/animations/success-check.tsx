@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** تیک موفقیت. The circle pops in, then the check draws itself. Needs the `pop` and `draw` keyframes. */
+/** Success check. The circle pops in, then the check draws itself. Needs the `pop` and `draw` keyframes. */
 export function SuccessCheck({ size = 72, label, className }: { size?: number; label?: React.ReactNode; className?: string }) {
   return (
     <div className={cn("inline-flex flex-col items-center gap-3", className)} role="status">

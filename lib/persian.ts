@@ -1,13 +1,14 @@
 /**
- * Iranian-specific validation and formatting: mobile numbers, شبا (IBAN), کد ملی,
- * bank cards (with BIN → bank), and car plates (پلاک).
+ * Iranian-specific validation and formatting: mobile numbers, national codes,
+ * IBANs, bank cards (BIN to bank name), and car plates. All helper labels this
+ * module returns are Persian, which is the point of the module.
  * Dependency-free; accepts Persian or Latin digits everywhere.
  */
 import { en, fa } from "./utils";
 
 /* ---------- mobile ---------- */
 
-/** Normalizes «۰۹۱۲…», «+98912…», «0098912…» to the 10-digit form «912…». */
+/** Normalizes «۰۹۱۲…», «+98912…» and «0098912…» to the bare 10-digit form «912…». */
 export function normalizeIranMobile(input: string): string {
   let d = en(input).replace(/\D/g, "");
   if (d.startsWith("0098")) d = d.slice(4);
@@ -40,7 +41,7 @@ export function mobileOperator(input: string): string | null {
   return OPERATORS.find(([re]) => re.test(d))?.[1] ?? null;
 }
 
-/* ---------- شبا / IBAN ---------- */
+/* ---------- IBAN ---------- */
 
 /** Keeps «IR» + up to 24 digits, upper-cased, digits normalized. */
 export function normalizeIban(input: string): string {
@@ -80,19 +81,20 @@ export function ibanBank(input: string): string | null {
   return BANKS[iban.slice(4, 7)] ?? null;
 }
 
-/** «ملت» → «بانک ملت»; names that already carry بانک/مؤسسه («پست بانک», «مؤسسه ملل») are left alone. */
+/** Expands a short bank name, e.g. «ملت» -> «بانک ملت»; names that already
+   * contain a bank or institute word are left alone. */
 export function bankLabel(name: string): string {
   return /بانک|مؤسسه/.test(name) ? name : `بانک ${name}`;
 }
 
-/* ---------- کد ملی ---------- */
+/* ---------- national ID ---------- */
 
 /** Digits only (Persian accepted), capped at 10. Keep it a string: codes may start with 0. */
 export function normalizeNationalId(input: string): string {
   return en(input).replace(/\D/g, "").slice(0, 10);
 }
 
-/** «۰۰۱-۲۳۴۵۶۷-۸» — the 3-6-1 grouping printed on the card. */
+/** Grouped form, the 3-6-1 layout printed on the card, e.g. «۰۰۱-۲۳۴۵۶۷-۸». */
 export function formatNationalId(input: string): string {
   const d = normalizeNationalId(input);
   return fa([d.slice(0, 3), d.slice(3, 9), d.slice(9, 10)].filter(Boolean).join("-"));
@@ -114,13 +116,13 @@ export function normalizeCardNumber(input: string): string {
   return en(input).replace(/\D/g, "").slice(0, 16);
 }
 
-/** «۶۰۳۷ ۹۹۱۱ ۲۲۳۳ ۴۴۵۵» — Persian digits, four groups. */
+/** Grouped form in Persian digits, four groups, e.g. «۶۰۳۷ ۹۹۱۱ ۲۲۳۳ ۴۴۵۵». */
 export function formatCardNumber(input: string): string {
   const d = normalizeCardNumber(input);
   return fa(d.replace(/(.{4})/g, "$1 ").trim());
 }
 
-/** First six digits (BIN / پیش‌شماره) of Iranian bank cards. Merged banks (انصار، قوامین، حکمت، مهر اقتصاد، کوثر) now issue under سپه. */
+/** First six digits (BIN) of Iranian bank cards. Merged banks now issue their cards under the Sepah BIN. */
 const CARD_BINS: Record<string, string> = {
   "603799": "ملی", "589210": "سپه", "627381": "سپه", "639599": "سپه", "636949": "سپه", "639370": "سپه", "505801": "سپه",
   "627648": "توسعه صادرات", "207177": "توسعه صادرات", "627961": "صنعت و معدن", "603770": "کشاورزی", "639217": "کشاورزی",
@@ -152,15 +154,15 @@ export function isCardNumber(input: string): boolean {
   return sum % 10 === 0;
 }
 
-/* ---------- پلاک خودرو ---------- */
+/* ---------- car plate ---------- */
 
 export type PlateValue = { left: string; letter: string; middle: string; region: string };
 
 export const EMPTY_PLATE: PlateValue = { left: "", letter: "", middle: "", region: "" };
 
 /**
- * Letters that appear on Iranian car plates and what they stand for.
- * «شخصی» letters come first; the rest mark a vehicle class.
+ * Letters that appear on Iranian car plates and what they stand for. The private
+ * (personal) letters come first; the rest mark a vehicle class.
  */
 export const PLATE_LETTERS: { letter: string; label: string }[] = [
   ...["ب", "ج", "د", "س", "ص", "ط", "ق", "ل", "م", "ن", "و", "ه", "ی"].map((letter) => ({ letter, label: "شخصی" })),
@@ -195,12 +197,13 @@ export function isPlate(value: PlateValue): boolean {
   return /^\d{2}$/.test(value.left) && PLATE_LETTER_SET.has(value.letter) && /^\d{3}$/.test(value.middle) && /^\d{2}$/.test(value.region);
 }
 
-/** Canonical storage form «12ب345-11» (Latin digits). Empty parts stay empty. */
+/** Canonical storage form with Latin digits, e.g. «12ب345-11». Empty parts stay empty. */
 export function stringifyPlate(value: PlateValue): string {
   return `${value.left}${value.letter}${value.middle}${value.region ? "-" + value.region : ""}`;
 }
 
-/** Parses «12ب345-11», «۱۲ ب ۳۴۵ ایران ۱۱» or «12 الف 345 11». Missing parts come back empty. */
+/** Parses the canonical form «12ب345-11», the display form «۱۲ ب ۳۴۵ ایران ۱۱»
+   * or a spaced form like «12 الف 345 11». Missing parts come back empty. */
 export function parsePlate(input: string): PlateValue {
   const s = en(input).replace(/ایران/g, " ").replace(/[\s\-_/]+/g, "");
   const m = /^(\d{0,2})(الف|[^\d]?)(\d{0,3})(\d{0,2})$/.exec(s);
@@ -209,7 +212,7 @@ export function parsePlate(input: string): PlateValue {
   return { left: m[1], letter, middle: m[3], region: m[4] };
 }
 
-/** Display form «۱۲ ب ۳۴۵ ایران ۱۱». */
+/** Human-readable form, e.g. «۱۲ ب ۳۴۵ ایران ۱۱». */
 export function formatPlate(value: PlateValue): string {
   if (!value.left && !value.letter && !value.middle && !value.region) return "";
   return `${fa(value.left)} ${value.letter} ${fa(value.middle)} ایران ${fa(value.region)}`.replace(/\s+/g, " ").trim();
@@ -217,7 +220,7 @@ export function formatPlate(value: PlateValue): string {
 
 /* ---------- relative time ---------- */
 
-/** «همین حالا»، «۵ دقیقه پیش»، «۳ ساعت پیش»، «دیروز»، «۴ روز پیش» */
+/** Relative time in Persian, e.g. «۵ دقیقه پیش» (5 minutes ago), «دیروز» (yesterday). */
 export function timeAgo(date: Date, now = new Date()): string {
   const s = Math.max(0, Math.round((now.getTime() - date.getTime()) / 1000));
   if (s < 60) return "همین حالا";

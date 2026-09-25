@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** چرخش کلمه. One slot in a sentence cycles through words; each rises in with a soft blur. Needs the `word-in` keyframes. */
+/** Word rotation. One slot in a sentence cycles through words; each rises in with a soft blur. Needs the `word-in` keyframes. */
 export function WordRotate({ words, interval = 2200, className }: { words: string[]; interval?: number; className?: string }) {
   const [i, setI] = React.useState(0);
   React.useEffect(() => {

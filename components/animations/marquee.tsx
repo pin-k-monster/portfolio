@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * نوار متحرک. Content is duplicated and translated from -50% to 0, so it
+ * Marquee. Content is duplicated and translated from -50% to 0, so it
  * moves left→right (the natural RTL flow) and loops seamlessly.
  */
 export function Marquee({ children, duration = 30, gap = "1rem", className }: { children: React.ReactNode; duration?: number; gap?: string; className?: string }) {

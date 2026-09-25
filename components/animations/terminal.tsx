@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export type TerminalLine = { type: "cmd" | "out" | "ok" | "err"; text: string };
 
-/** ترمینال. Types each command letter by letter, then prints its output; commands are LTR mono, Persian output stays RTL. Starts when scrolled into view. */
+/** Terminal. Types each command letter by letter, then prints its output; commands are LTR mono, Persian output stays RTL. Starts when scrolled into view. */
 export function Terminal({ lines, speed = 45, title = "ترمینال", className }: { lines: TerminalLine[]; speed?: number; title?: string; className?: string }) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [go, setGo] = React.useState(false);

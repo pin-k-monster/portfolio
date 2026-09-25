@@ -1,43 +1,46 @@
 import type { TechTag } from "../shared";
 
-/** بازه‌ی زمانی یک سمت. */
+/** Date range of a role. */
 export interface ExperiencePeriod {
-  /** تاریخ شروع واقعی (برای تبدیل با formatJalali در data). */
+  /** Start of the role. */
   start: Date;
-  /** تاریخ پایان؛ null یعنی سمت فعلی و «اکنون». */
+  /** End of the role, or `null` for the current position. */
   end: Date | null;
-  /** برچسب آماده‌ی نمایش، عدد فارسی و شمسی: مثل «از ۱۴۰۲ تاکنون». با formatJalali در همین data ساخته شده. */
+  /**
+   * Pre-formatted Persian range, e.g. "۱۴۰۳/۰۲ – اکنون".
+   * Build it with `formatJalali` from `@/lib/jalali` so it stays in sync.
+   */
   label: string;
 }
 
-/** یک سمت شغلی. */
+/** One job entry. */
 export interface ExperienceItem {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** عنوان شغلی. */
+  /** Job title. */
   role: string;
-  /** نام شرکت/سازمان. */
+  /** Employer name. */
   company: string;
-  /** لینک شرکت (اختیاری). */
+  /** Employer website. Omit to render the name as plain text. */
   companyUrl?: string;
-  /** محل کار (اختیاری). */
+  /** Office location. */
   location?: string;
-  /** بازه‌ی زمانی. */
+  /** When you worked there. */
   period: ExperiencePeriod;
-  /** شرح یک‌خطی سمت. */
+  /** One or two sentences describing the scope of the work. */
   summary: string;
-  /** دستاوردهای کلیدی؛ هر آیتم یک پیمانه که در کارت نمایش داده می‌شود. */
+  /** 3-4 achievement bullets. Numbers in them are highlighted automatically. */
   points: string[];
-  /** فناوری‌های به‌کاررفته (نشان‌ها زیر توضیح). */
+  /** Technology badges. */
   stack: TechTag[];
 }
 
-/** کل محتوای تجربه. */
+/** Content of the "Experience" section. */
 export interface ExperienceContent {
-  /** برچسب بالای تیتر. */
+  /** Small label above the heading. */
   eyebrow: string;
-  /** تیتر بخش. */
+  /** Section heading. */
   title: string;
-  /** سمت‌ها از جدید به قدیمی. */
+  /** Roles, newest first. */
   items: ExperienceItem[];
 }

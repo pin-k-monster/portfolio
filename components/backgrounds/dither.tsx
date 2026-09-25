@@ -19,7 +19,7 @@ void main(){
   gl_FragColor=vec4(u_color0,on*u_opacity);
 }`;
 
-/** دیترینگ. Ordered Bayer dithering over a drifting gradient, like an old display. WebGL via ShaderCanvas. */
+/** Dithering. Ordered Bayer dithering over a drifting gradient, like an old display. WebGL via ShaderCanvas. */
 export function DitherBackground({ pixel = 3, speed = 1, opacity = 0.5, className }: { pixel?: number; speed?: number; opacity?: number; className?: string }) {
   return <ShaderCanvas fragment={FRAG} colors={["--foreground"]} uniforms={{ u_pixel: pixel, u_opacity: opacity }} speed={speed} className={className} />;
 }

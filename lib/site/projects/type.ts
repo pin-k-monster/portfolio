@@ -1,59 +1,62 @@
-import { type ImageAsset, type TechTag } from "../shared";
+import type { ImageAsset, TechTag } from "../shared";
 
-/** یک دسته‌ی فیلتر پروژه. */
+/** A filter tab above the project grid. */
 export interface ProjectCategory {
-  /** کلید یکتا، فارسی کوتاه (مثل "web"). */
+  /** Unique id; projects reference it through `categoryId`. */
   id: string;
-  /** برچسب فارسی روی تب. */
+  /** Visible label, e.g. "Web". */
   label: string;
 }
 
-/** لینک‌های یک پروژه. */
+/** External links for a project. */
 export interface ProjectLinks {
-  /** آدرس مخزن کد (اختیاری). */
+  /** Source repository. */
   code?: string;
-  /** آدرس دمو/محصول زنده (اختیاری). */
+  /** Live demo. */
   live?: string;
 }
 
-/** یک پروژه‌ی نمونه‌کار. */
+/** One project card. */
 export interface Project {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** نام کوتاه پاک‌سازی‌شده برای href/آدرس; می‌تواند لاتین باشد. */
+  /** Stable slug, handy if you later add a detail route. */
   slug: string;
-  /** عنوان فارسی پروژه. */
+  /** Project name. */
   title: string;
-  /** دسته؛ باید یکی از ProjectCategory.id باشد. */
+  /** Must match one of the `categories[].id` values. */
   categoryId: string;
-  /** خلاصه‌ی کارت (یک‌پاراگراف). */
+  /** Two-line teaser shown on the card. */
   summary: string;
-  /** توضیح بلند داخل dialog. */
+  /** Full description shown inside the detail dialog. */
   longDescription: string;
-  /** نقشی که در پروژه داشتید (داخل dialog و کارت). */
+  /** Your role on the project, e.g. "Full-stack developer". */
   role: string;
-  /** فناوری‌های پروژه به‌عنوان نشان. */
+  /** Technology badges. */
   tech: TechTag[];
-  /** تصویر پوشش؛ placeholder است و باید جایگزین شود. */
-  image: ImageAsset;
-  /** لینک‌های خارجی (اختیاری). */
+  /**
+   * Cover image. Optional: when omitted (or when the file is missing) the card
+   * falls back to a generated gradient with the project's monogram.
+   */
+  image?: ImageAsset;
+  /** Demo / repository links. Omit the whole object when there are none. */
   links?: ProjectLinks;
-  /** فقط یکی true باشد؛ کارت ویژه با spotlight-card و اول نمایش داده می‌شود. */
+  /** The first visible featured project gets the spotlight treatment. */
   featured?: boolean;
 }
 
-/** کل محتوای پروژه‌ها. */
+/** Content of the projects section. */
 export interface ProjectsContent {
-  /** برچسب بالای تیتر. */
+  /** Small label above the heading. */
   eyebrow: string;
-  /** تیتر بخش. */
+  /** Section heading. */
   title: string;
-  /** توضیح کوتاه زیر تیتر. */
+  /** Intro paragraph. */
   description: string;
-  /** دسته‌ها؛ شامل دسته‌ی «همه» در ابتدای فهرست. */
+  /** Filter tabs, in render order. */
   categories: ProjectCategory[];
-  /** شناسه‌ی دسته‌ی پیش‌فرض؛ معمولاً «همه». */
+  /** Id of the tab selected on load. */
   defaultCategory: string;
-  /** پروژه‌ها. */
+  /** The projects themselves. */
   projects: Project[];
 }

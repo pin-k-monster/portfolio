@@ -1,6 +1,6 @@
 /**
- * محتوای نظرات مشتریان (این فایل کد واقعی است).
- * اعداد فارسی‌اند و از قبل آماده‌ی نمایش‌اند.
+ * Testimonials content. Numbers are pre-formatted with Persian digits, so they
+ * are rendered exactly as written here.
  */
 import type { TestimonialsContent } from "./type";
 

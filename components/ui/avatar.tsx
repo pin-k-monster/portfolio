@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { cn, fa } from "@/lib/utils";
 
@@ -10,21 +12,28 @@ export interface AvatarProps {
 
 const sizes = { sm: "size-7 text-[11px]", md: "size-9 text-sm", lg: "size-12 text-base" };
 
-/** آواتار. Photo when `src` is set; otherwise a white initial in a white ring. */
+/** Avatar. Photo when `src` loads, otherwise the name's initial in a ring. */
 export function Avatar({ name, src, size = "md", className }: AvatarProps) {
+  const [failed, setFailed] = React.useState(false);
   const initial = name.trim().charAt(0);
+  const showImage = Boolean(src) && !failed;
+
   return (
     <span
       title={name}
       className={cn(
         "relative inline-flex shrink-0 items-center justify-center rounded-full font-semibold",
-        !src && "bg-transparent text-foreground ring-2 ring-foreground",
+        !showImage && "bg-transparent text-foreground ring-2 ring-foreground",
         sizes[size],
         className,
       )}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element -- avatars are tiny and often external */}
-      {src ? <img src={src} alt={name} className="size-full rounded-full object-cover" /> : initial}
+      {showImage ? (
+        // eslint-disable-next-line @next/next/no-img-element -- avatars are tiny and often external
+        <img src={src} alt={name} className="size-full rounded-full object-cover" onError={() => setFailed(true)} />
+      ) : (
+        initial
+      )}
     </span>
   );
 }

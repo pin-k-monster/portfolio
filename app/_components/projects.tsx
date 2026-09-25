@@ -17,15 +17,20 @@ import type { Project } from "@/lib/site/projects/type";
 import type { ImageAsset } from "@/lib/site/shared";
 import { cn } from "@/lib/utils";
 
-function ProjectCover({ image, className }: { image: ImageAsset; className?: string }) {
+/**
+ * Project cover. Falls back to a generated gradient when `image` is missing
+ * or the file fails to load, so a card is never an empty grey box.
+ */
+function ProjectCover({ image, className }: { image?: ImageAsset; className?: string }) {
 	const [state, setState] = useState<"loading" | "ready" | "error">("loading");
+	const failed = !image || state === "error";
 
-	if (state === "error") {
+	if (failed) {
 		return (
 			<div className={cn("relative flex aspect-video w-full shrink-0 items-center justify-center overflow-hidden bg-secondary", className)}>
 				<div aria-hidden className="absolute inset-0 bg-linear-to-br from-brand/25 via-card to-secondary" />
 				<div aria-hidden className="absolute -inset-x-8 -inset-y-4 bg-brand/15 blur-3xl" />
-				<ImageOff className="relative size-8 text-brand/70" />
+				<ImageOff className="relative size-8 text-brand/70" aria-hidden />
 			</div>
 		);
 	}

@@ -3,14 +3,14 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** پشته‌ی کارت. Cards sit stacked; every few seconds the front card slides to the back. Pauses on hover. A small ring counts down to the next swap. Give it a height via className. */
+/** Card stack. Cards sit stacked; every few seconds the front card slides to the back. Pauses on hover. A small ring counts down to the next swap. Give it a height via className. */
 export function CardStack({ items, interval = 3200, offset = 12, scale = 0.05, className }: { items: React.ReactNode[]; interval?: number; offset?: number; scale?: number; className?: string }) {
   const [order, setOrder] = React.useState(() => items.map((_, i) => i));
   const [paused, setPaused] = React.useState(false);
+  // Bumping the cycle remounts the countdown ring, which restarts its animation.
   const [cycle, setCycle] = React.useState(0);
   React.useEffect(() => {
     if (paused || items.length < 2) return;
-    setCycle((c) => c + 1);
     const id = window.setInterval(() => {
       setOrder((o) => [...o.slice(1), o[0]]);
       setCycle((c) => c + 1);
@@ -24,7 +24,14 @@ export function CardStack({ items, interval = 3200, offset = 12, scale = 0.05, c
   const c = 2 * Math.PI * r;
 
   return (
-    <div className={cn("relative h-48 w-full max-w-sm", className)} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <div
+      className={cn("relative h-48 w-full max-w-sm", className)}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => {
+        setPaused(false);
+        setCycle((n) => n + 1);
+      }}
+    >
       {items.map((node, i) => {
         const depth = order.indexOf(i);
         return (

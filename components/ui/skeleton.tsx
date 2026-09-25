@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** اسکلت. Pulses by default; `shimmer` sweeps a highlight from right to left. */
+/** Skeleton. Pulses by default; `shimmer` sweeps a highlight from right to left. */
 export function Skeleton({ className, shimmer, ...props }: React.HTMLAttributes<HTMLDivElement> & { shimmer?: boolean }) {
   return (
     <div

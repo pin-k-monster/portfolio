@@ -1,33 +1,33 @@
 import type { CtaLink } from "../shared";
 
-/** یک مخزن سنجاق‌شده. */
+/** One open-source repository card. */
 export interface Repo {
-  /** کلید یکتا. */
+  /** Unique id, used as the React key. */
   id: string;
-  /** نام مخزن (لاتین). */
+  /** Repository name, rendered LTR. */
   name: string;
-  /** توضیح فارسی/کوتاه مخزن. */
+  /** One-line summary. */
   description: string;
-  /** زبان اصلی (یعنی برچسب زیر نام). */
+  /** Primary language, e.g. "TypeScript". */
   language: string;
-  /** تعداد ستاره؛ عدد لاتین در data، نمایش با fa انجام می‌شود. */
+  /** Star count. Persian digits are applied automatically. */
   stars: number;
-  /** تعداد فورک؛ مثل ستاره. */
+  /** Fork count. Persian digits are applied automatically. */
   forks: number;
-  /** آدرس مخزن در گیت‌هاب. */
+  /** Repository URL on GitHub. */
   url: string;
 }
 
-/** کل محتوای متن‌باز. */
+/** Content of the open-source section. */
 export interface OpenSourceContent {
-  /** برچسب بالای تیتر. */
+  /** Small label above the heading. */
   eyebrow: string;
-  /** تیتر بخش. */
+  /** Section heading. */
   title: string;
-  /** توضیح کوتاه زیر تیتر. */
+  /** Intro paragraph. */
   description: string;
-  /** مخزن‌های سنجاق‌شده. */
+  /** Repository cards. */
   repos: Repo[];
-  /** دکمه‌ی پایانی بخش: نمایه‌ی کامل گیت‌هاب. */
+  /** "See all repositories" button, usually your GitHub profile. */
   githubCta: CtaLink;
 }

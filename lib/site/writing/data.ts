@@ -7,7 +7,7 @@ export const writing: WritingContent = {
   articles: [
     {
       id: "rtl-web",
-      slug: "/writing/rtl-web",
+      href: "https://example.com/blog/rtl-web",
       title: "طراحی رابط راست‌چین؛ نه فقط یک dir=rtl",
       excerpt:
         "چرا محصولات راست‌چین با آینه‌کردن چپ‌چین درست نمی‌شوند؛ از logical properties تا آیکون‌های جهت‌دار و داستان اعداد فارسی.",
@@ -21,7 +21,7 @@ export const writing: WritingContent = {
     },
     {
       id: "next-images",
-      slug: "/writing/next-images",
+      href: "https://example.com/blog/next-images",
       title: "بهینه‌سازی تصویر در Next.js؛ از LCP تا پیش‌بارگذاری",
       excerpt:
         "تجربه‌ی عملی‌ام در پایین‌آوردن LCP یک وب‌اپ پرمصرف؛ رزولوشن‌های باطل، صفت preload به‌جای priority و اندازه‌های درست برای fill.",
@@ -35,7 +35,7 @@ export const writing: WritingContent = {
     },
     {
       id: "jalali-react",
-      slug: "/writing/jalali-react",
+      href: "https://example.com/blog/jalali-react",
       title: "تقویم شمسی در React بدون وابستگی سنگین",
       excerpt:
         "چطور کتابخانه‌ی jdate-react را نوشتم؛ الگوریتم تبدیل Borkowski، قالب‌بندی اعداد فارسی و انتخاب طراحی API برای کتابخانه‌های کوچک.",
@@ -49,14 +49,14 @@ export const writing: WritingContent = {
     },
     {
       id: "typescript-taste",
-      slug: "/writing/typescript-taste",
+      href: "https://example.com/blog/typescript-taste",
       title: "TypeScript برای محصول؛ تایپ‌هایی که بالاخره راحت‌اند",
       excerpt:
         "از union های نامحدود تا ساختارهای دوجانبه؛ چرا تایپ خوب ریشه‌ی کدِ قابل نگهداری است و چطور بدون پیچیده‌کردن، تایپ‌های معنادار بنویسیم.",
       category: "زبان",
       tags: [
         { id: "ts", name: "TypeScript" },
-        { id: "money", name: "Product" },
+        { id: "product", name: "Product" },
       ],
       publishedAt: "۱۴۰۳/۰۸/۱۹",
       readingMinutes: 6,
@@ -64,6 +64,8 @@ export const writing: WritingContent = {
   ],
   readAllCta: {
     label: "دیدن همه‌ی مقاله‌ها",
-    href: "/writing",
+    href: "https://example.com/blog",
+    target: "_blank",
+    rel: "noopener noreferrer",
   },
 } satisfies WritingContent;

@@ -17,7 +17,7 @@ void main(){
   gl_FragColor=vec4(u_color0,a*u_opacity);
 }`;
 
-/** اسکن‌لاین. CRT phosphor lines, a slow rolling bar, faint static, and a vignette. WebGL via ShaderCanvas. */
+/** Scanlines. CRT phosphor lines, a slow rolling bar, faint static, and a vignette. WebGL via ShaderCanvas. */
 export function ScanlinesBackground({ gap = 3, speed = 1, opacity = 0.3, className }: { gap?: number; speed?: number; opacity?: number; className?: string }) {
   return <ShaderCanvas fragment={FRAG} colors={["--foreground"]} uniforms={{ u_gap: gap, u_opacity: opacity }} speed={speed} className={className} />;
 }

@@ -1,6 +1,6 @@
 import type { CtaLink } from "../shared";
 
-/** شناسه‌ی بخش‌های یک‌صفحه‌ای. مقدار دقیقا با id هر section در نقشه‌ی صفحه یکی است. */
+/** Ids of the sections the navbar can highlight. Must match the `id` attribute on each `<section>`. */
 export type SectionId =
   | "hero"
   | "about"
@@ -13,22 +13,22 @@ export type SectionId =
   | "writing"
   | "contact";
 
-/** یک آیتم منوی نوبار. */
+/** One navbar link. */
 export interface NavItem {
-  /** شناسه‌ی مقصد؛ برای نشان دادن بخش فعال هم استفاده می‌شود. */
+  /** Section id; the navbar highlights the entry whose section is in view. */
   id: SectionId;
-  /** متن فارسی منو. */
+  /** Visible label. */
   label: string;
-  /** آدرس لنگر؛ همیشه "#" + id. */
+  /** Target, usually `"#" + id`. */
   href: string;
 }
 
-/** کل محتوای نوبار. */
+/** Content of the navbar. */
 export interface NavbarContent {
-  /** ترتیب آیتم‌ها در دسکتاپ؛ در RTL اولین آیتم سمت راست است. */
+  /** Links in render order. In RTL the first item is the right-most. */
   items: NavItem[];
-  /** دکمه‌ی اقدام نوبار (دانلود رزومه). از config می‌آید. */
+  /** Header call-to-action, usually the résumé download. */
   cta: CtaLink;
-  /** عنوان کشوی موبایل (sheet). */
+  /** Heading of the mobile drawer. */
   mobileMenuTitle: string;
 }

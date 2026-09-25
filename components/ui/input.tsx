@@ -11,7 +11,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 /**
- * ورودی متن. Persian text is RTL by default; pass `dir="ltr"` for phone
+ * Text input. Persian text is RTL by default; pass `dir="ltr"` for phone
  * numbers, emails and codes so digits keep their natural order.
  */
 export function Input({ className, type, startAddon, endAddon, error, id, dir, ...props }: InputProps) {

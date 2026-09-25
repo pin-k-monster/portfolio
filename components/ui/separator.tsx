@@ -3,13 +3,13 @@ import { cn } from "@/lib/utils";
 
 export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
   orientation?: "horizontal" | "vertical";
-  /** Text in the middle of a horizontal rule, e.g. «یا». */
+  /** Optional label that sits in the middle of the rule, e.g. «یا». */
   label?: React.ReactNode;
   /** Purely visual; screen readers skip it. */
   decorative?: boolean;
 }
 
-/** جداکننده. A hairline from the border token; with `label` the text sits in the middle. */
+/** Separator. A hairline from the border token; with `label` the text sits in the middle. */
 export function Separator({ orientation = "horizontal", label, decorative = true, className, ...props }: SeparatorProps) {
   const a11y = decorative ? { role: "none" as const } : { role: "separator" as const, "aria-orientation": orientation };
 

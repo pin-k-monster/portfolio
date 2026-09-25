@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  poweredByHeader: false,
   images: {
-    remotePatterns: [new URL('https://cdn.simpleicons.org/**')],
+    formats: ["image/avif", "image/webp"],
   },
 };
 

@@ -1,27 +1,3 @@
-/*
- * ============================================================
- *  بخش نظرات مشتریان (Testimonials)
- * ============================================================
- *
- * ۱. Purpose (هدف)
- * ‌- پیام: آدم‌های واقعی پشت این اعداد و پروژه‌ها؛ اعتماد با صدای کارفرما.
- * ‌- اقدام اصلی: خواندن نظرها و رسیدن به بخش تماس.
- *
- * ۲. VibeFarsi components (کامپوننت‌ها)
- * ‌- card-stack (animations/card-stack): پشته‌ی کارت‌های نظر که هر چند ثانیه می‌چرخند. add: card-stack
- * ‌- testimonials (blocks/testimonials): شبکه‌ی کارت‌های نقل‌قول با ستاره و آواتار. add: testimonials
- * ‌- logo-cloud (blocks/logo-cloud): ردیف نام کارفرمایان زیر نظرها. add: logo-cloud
- * ‌- rating (ui/rating): امتیاز ستاره‌ای خواندنی در کارت خلاصه. add: rating
- * ‌- avatar/avatarGroup (ui/avatar): آواتارهای منتقدان در کارت خلاصه. add: avatar
- * ‌- aurora (backgrounds/aurora): لکه‌های نور برند که آرام حرکت می‌کنند. add: aurora
- * ‌- badge/separator برای برچسب‌ها و جداکننده‌ها.
- *
- * ۳. Layout (چیدمان)
- * ‌- از بالا: eyebrow → تیتر → توضیح → ردیف دو ستونه [پشته‌ی کارت | کارت خلاصه‌ی امتیاز] →
- * ‌    شبکه‌ی کامل نظرات → ردیف لوگوی مشتریان.
- * ‌- RTL: پشته‌ی کارت سمت راست؛ کارت خلاصه سمت چپ.
- */
-
 import { Reveal } from "@/components/animations/reveal";
 import { CardStack } from "@/components/animations/card-stack";
 import { LogoCloud } from "@/components/blocks/logo-cloud";

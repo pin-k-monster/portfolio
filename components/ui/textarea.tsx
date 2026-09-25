@@ -6,11 +6,11 @@ import { cn, fa } from "@/lib/utils";
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   /** Grow with content instead of scrolling. */
   autoResize?: boolean;
-  /** Show a «۲۴ / ۱۲۰» counter (requires maxLength). */
+  /** Show a «۲۴ / ۱۲۰» counter in Persian digits (requires maxLength). */
   showCount?: boolean;
 }
 
-/** متن چندخطی با شمارنده‌ی فارسی و ارتفاع خودکار. */
+/** Multiline text field with auto-resize and a Persian digit counter. */
 export function Textarea({ className, autoResize, showCount, maxLength, onChange, value, defaultValue, ...props }: TextareaProps) {
   const ref = React.useRef<HTMLTextAreaElement>(null);
   const [len, setLen] = React.useState(String(value ?? defaultValue ?? "").length);

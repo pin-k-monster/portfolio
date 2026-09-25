@@ -14,7 +14,7 @@ export interface PhoneInputProps {
   autoFocus?: boolean;
 }
 
-/** شماره‌ی موبایل ایران. «+98» fixed on the left, groups of 3-3-4, operator detection, Persian digits accepted. */
+/** Iranian mobile number. «+98» fixed on the left, groups of 3-3-4, operator detection, Persian digits accepted. */
 export function PhoneInput({ value, onChange, className, id, autoFocus }: PhoneInputProps) {
   const [internal, setInternal] = React.useState("");
   const digits = normalizeIranMobile(value ?? internal);

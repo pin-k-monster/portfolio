@@ -1,5 +1,9 @@
 import type { ProjectsContent } from "./type";
 
+/**
+ * Projects shown in the filterable grid. `image.src` is a path inside `/public`;
+ * drop the whole `image` key and the card falls back to a generated gradient.
+ */
 export const projects: ProjectsContent = {
   eyebrow: "نمونه‌کار",
   title: "پروژه‌های منتخب",

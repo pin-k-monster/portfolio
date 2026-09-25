@@ -4,7 +4,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * بوم شیدر. Raw WebGL (no library) that runs a fragment shader as a background layer.
+ * Shader canvas. Raw WebGL (no library) that runs a fragment shader as a background layer.
  * Colors come from CSS variables and update when the theme changes; the loop pauses
  * off-screen, stops under prefers-reduced-motion, and frees the GPU context on unmount.
  *

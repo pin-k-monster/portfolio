@@ -1,54 +1,55 @@
 import { Send } from "lucide-react";
 import type { SocialLink } from "./shared";
 
-/** ساختار پیکربندی مرکزی؛ خروجی export تا فایل‌های data بتوانند تایپ بگیرند. */
+/**
+ * Global identity of the site. This is the one file every section imports from,
+ * so changing your name, e-mail or social links only has to happen here.
+ */
 export interface SiteConfig {
-  /** نام کامل (الزامی؛ در هیرو، فوتر و متا). */
+  /** Full name. Used in the navbar logo, hero, contact e-mail and metadata. */
   name: string;
-  /** علامت کوتاه لوگو (۱–۲ کاراکتر). */
-  monogram: string;
-  /** عنوان شغلی اصلی (در هیرو، تیتر meta و فوتر). */
-  role: string;
-  /** شعار یک‌خطی. */
-  tagline: string;
-  /** شهر، کشور. */
+  /** BCP-47 tag, emitted as `<html lang>` and as the `og:locale` value. */
+  locale: string;
+  /** City and country. */
   location: string;
-  /** وضعیت در دسترس بودن برای همکاری. */
-  availability: string;
-  /** اطلاعات تماس مستقیم. ایمیل هدف فرم تماس و لینک mailto. */
+  /** Direct contact details. `email` is the contact-form inbox and the `mailto:` target. */
   contact: {
     email: string;
   };
-  /** لینک دانلود رزومه؛ هم در نوبار و هم در CTA پایانی استفاده می‌شود. فایل هنوز در /public نیست؛ باید اضافه شود. */
+  /**
+   * Résumé download. `href` must point at a real file — by convention
+   * `/public/resume.pdf`. The same object powers the navbar CTA, the hero
+   * button, the about button and the closing CTA.
+   */
   resume: {
     label: string;
     href: string;
     download: true;
   };
-  /** شبکه‌های اجتماعی؛ در فوتر و تماس و هیرو (proof). */
+  /** Social profiles, rendered in the navbar sheet, contact section and footer. */
   socials: SocialLink[];
-  /** متادیتای سئو و Open Graph (در layout.tsx به export const metadata می‌رود). */
+  /**
+   * SEO inputs. `url` is the production origin and is required for absolute
+   * Open Graph URLs; `ogImage` is the social preview image (1200x630).
+   */
   seo: {
-    /** <title> فارسی صفحه. */
+    /** `<title>` of the page. */
     title: string;
-    /** توضیح متا فارسی (حدود ۱۵۰–۱۶۰ کاراکتر). */
+    /** Meta description, roughly 150-160 characters. */
     description: string;
-    /** کلمات کلیدی جدا با ویرگول. */
+    /** Comma-separated keywords. */
     keywords: string[];
-    /** آدرس پایه برای OG؛ در تولید باید دامنه‌ی واقعی باشد. */
+    /** Production origin, e.g. `https://example.com`. No trailing slash. */
     url: string;
-    /** تصویر Open Graph در /public. */
+    /** Path to the social preview image inside `/public`. */
     ogImage: string;
   };
 }
 
 export const site: SiteConfig = {
   name: "کیارش جمالی",
-  monogram: "ع",
-  role: "توسعه‌دهنده‌ی فول‌استک",
-  tagline: "محصولات وب سریع، در دسترس و همه‌فهم می‌سازم",
+  locale: "fa_IR",
   location: "تهران، ایران",
-  availability: "برای پروژه‌های جدید و همکاری در دسترس هستم",
   contact: {
     email: "arian@example.ir",
   },
@@ -77,6 +78,6 @@ export const site: SiteConfig = {
       "توسعه وب ایران",
     ],
     url: "https://arian-rezaei.example.ir",
-    ogImage: "/images/og.png",
+    ogImage: "/og.png",
   },
 };

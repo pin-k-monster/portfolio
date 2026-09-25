@@ -29,7 +29,7 @@ body {
 }
 
 /* --- vibefarsi:theme-graphite --- */
-/* گرافیت، پیش‌فرض. این بلوک را در :root بگذارید. */
+/* Graphite, the default theme. Keep this block in :root. */
 :root {
   color-scheme: dark;
   --background: oklch(0.115 0.002 285);
@@ -59,7 +59,7 @@ body {
 /* --- vibefarsi:theme-graphite-end --- */
 
 /* --- graphite:light --- */
-/* تم روشنِ گرافیت؛ با data-theme روی <html> (توسط ThemeProvider) فعال می‌شود. */
+/* Graphite light theme; activated by data-theme on <html>. */
 [data-theme="light"] {
   color-scheme: light;
   --background: oklch(0.982 0.005 90);
